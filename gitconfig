@@ -1,0 +1,9 @@
+[user]
+	name = jeff
+	email = jeff@arista.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[alias]
+	onelog = log --oneline --decorate --graph

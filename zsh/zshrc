@@ -1,0 +1,66 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd extendedglob
+unsetopt beep
+bindkey -v
+# End of lines configured by zsh-newuser-install
+
+# Prompt
+function precmd {
+   # check chroot
+   if [[ -n "${A4_CHROOT}" ]]; then
+      PR_CHROOT_COL="yellow"
+   else
+      PR_CHROOT_COL="red"
+   fi
+   PR_COL=$PR_CHROOT_COL
+
+   # check ns
+   if [[ -n "${NSNAME}" ]]; then
+      PR_NS=" +${NSNAME}"
+   else
+      PR_NS=""
+   fi
+}
+
+# Show vi mode in prompt
+accept-line() { PR_COL=$PR_CHROOT_COL; zle reset-prompt; zle .accept-line }
+zle -N accept-line
+function zle-line-init zle-keymap-select {
+    PR_COL="${${KEYMAP/vicmd/cyan}/(main|viins)/$PR_CHROOT_COL}"
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+setprompt () {
+   setopt prompt_subst prompt_percent
+   autoload -U colors && colors
+
+   PROMPT='%{$fg[$PR_COL]%}%D{%-m/%-d %H:%M}$PR_NS %1d %#%{$reset_color%} '
+}
+
+setprompt
+
+fpath=(~/.zsh/completions $fpath)
+autoload -U compinit
+compinit
+
+# Options
+setopt hist_ignore_all_dups inc_append_history hist_save_no_dups hist_reduce_blanks hist_ignore_space
+setopt interactivecomments
+KEYTIMEOUT=1
+
+# Aliases
+alias notify='echo -e "\a"'
+alias tnest='(unset TMUX; tmux)'
+alias vi='vim -u NONE'
+
+# Environment
+export PATH=/home/jeff/bin:$PATH
+export PYTHONPATH=$PYTHONPATH:/home/jeff/saved/gitar
+export EDITOR=vim
+export P4MERGE=amergeVim
+export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml

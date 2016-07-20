@@ -1,0 +1,75 @@
+#compdef a4
+
+_a4_packages() {
+   _arguments "$1: :(`ls $A4_CHROOT/src/`)"
+}
+
+_a4() {
+   local context state state_descr line
+   typeset -A opt_args
+   local ret
+   local nstate=$(($#words - 1))
+
+   _arguments '1: :->first' '*: :->next'
+
+   case $state in
+      first)
+         ret=$( python -c "import imp; \
+            a4 = imp.load_source('a4', '`which a4`'); \
+            print ' '.join( sorted( a4.a4commands.keys() + a4.p4commands ) )" )
+         _arguments '1: :('$ret')'
+      ;;
+      *)
+         case $words[2] in
+            project)
+               if [ $nstate -eq 2 ]; then
+                  ret=$( python -c "import A4.Project; \
+                     print ' '.join( A4.Project.commandTable.keys() )" )
+                  _arguments '2: :('$ret')'
+               else
+                  case $words[3] in
+                     branchpackage)
+                        _a4_packages $nstate
+                     ;;
+                     setting)
+                        ret=$( python -c "import A4.Project; \
+                           print ' '.join( sorted( [ s.name for s in \
+                           A4.Project.allSettings ] ) )" )
+                        _arguments $nstate': :('$ret')'
+                     ;;
+                     unbranchpackage)
+                        local proj pkgs
+                        proj=$( grep '^A4PROJECT' $A4_CHROOT/p4conf | cut -d= -f2- )
+                        pkgs=$( grep '^memberPackages' /eng/project/$proj/settings | cut -d= -f2- | tr '[]' '()' )
+                        pkgs=${pkgs//[\',]/}
+                        pkgs=${pkgs//\/$proj/}
+                        _arguments $nstate': :'$pkgs
+                     ;;
+                     *)
+                        _files
+                     ;;
+                  esac
+               fi
+            ;;
+            make)
+               case $words[$nstate] in
+                  -p)
+                     _a4_packages $nstate
+                  ;;
+                  *)
+                     _files
+                  ;;
+               esac
+            ;;
+            configure)
+               _a4_packages $nstate
+            ;;
+            *)
+               _files
+            ;;
+         esac
+      ;;
+   esac
+}
+
+_a4 "$@"

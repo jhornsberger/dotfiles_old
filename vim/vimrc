@@ -1,0 +1,229 @@
+
+" Plugins via Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'gregsexton/gitv'
+Plugin 'tmhedberg/matchit'
+Plugin 'vim-scripts/python_match.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'h1mesuke/unite-outline'
+Plugin 'eiiches/unite-tselect'
+Plugin 'Shougo/unite.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'haya14busa/vim-asterisk'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'kana/vim-fakeclip'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mhinz/vim-hugefile'
+Plugin 'tpope/vim-jdaddy'
+Plugin 'tpope/vim-surround'
+Plugin 'tex/vim-unite-id'
+call vundle#end()
+filetype plugin indent on
+
+" Options for editing
+set shiftwidth=3
+set tabstop=3
+set linebreak
+set textwidth=85
+set cindent
+set autoindent
+set smarttab
+set expandtab
+set nospell
+set virtualedit=all
+set complete-=i
+
+" Don't save options in sessions
+set sessionoptions-=options
+set sessionoptions-=folds
+
+" Make splits appear as expected
+set splitbelow
+set splitright
+
+" Prevent key pauses
+set timeout
+set ttimeout
+set timeoutlen=1000
+set ttimeoutlen=0
+
+" Options for setting the bottom 2 lines
+set showmode
+set laststatus=2
+set ruler
+
+" Show non-printing characters
+set list
+set listchars=tab:»\ ,trail:·
+
+" UI stuff
+set background=light
+function SetColours()
+   try
+      colorscheme solarized
+   catch /^Vim\%((\a\+)\)\=:E185/
+      colorscheme desert
+   endtry
+endfunction
+call SetColours()
+
+syntax enable
+set nocursorline
+set visualbell
+set ignorecase
+set smartcase
+set guioptions=aeir
+set hidden
+set hlsearch
+set incsearch
+set showcmd
+set wildmenu
+set lazyredraw
+
+" Highlight cursor line only in current window
+augroup CulHighlight
+   autocmd!
+   autocmd WinEnter * set cul
+   autocmd WinLeave * set nocul
+augroup END
+
+if has("gui_running")
+  if has("gui_win32")
+    set guifont=Lucida_Console:h10:cDEFAULT
+  endif
+endif
+
+" Options for folding
+set foldmethod=indent           "fdm:   fold by the indentation by default
+set nofoldenable                "nofen: don't fold by default
+
+" Options for backup files
+set nobackup
+set nowritebackup
+if has('unix')
+   set directory=/tmp
+else
+   set directory=$TEMP
+endif
+
+" define a group `vimrc` and initialize.
+augroup vimrc
+   autocmd!
+augroup END
+
+" Options for vimdiff
+set diffopt=filler,vertical
+" Automatically diffupdate on write
+autocmd vimrc BufWritePost * if &diff == 1 | diffupdate | endif
+
+" Always move quickfix list to the bottom of the window
+autocmd vimrc FileType qf wincmd J
+
+" Treat *.md files as markdown instead of Modula-2
+autocmd vimrc BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd vimrc BufNewFile,BufReadPost *.md set textwidth=0
+
+" Mappings
+let g:mapleader = "\<Space>"
+map Y y$
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <Leader>tc :tabclose<return>
+nnoremap <Leader>tn :tabnew<return>
+nnoremap <Leader>te :tabedit<space>
+nnoremap <Leader>tm :tabmove<space>
+nnoremap j gj
+nnoremap k gk
+cmap w!! %!sudo tee > /dev/null %
+noremap <silent><Leader>/ :nohls<CR>
+nnoremap <Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
+nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
+nnoremap <Leader>\| :vsp<cr>
+nnoremap <Leader>- :sp<cr>
+nnoremap <Leader>= <C-w>=
+nnoremap <Leader>o :only<cr>
+nnoremap <Leader>c :close<cr>
+nnoremap <Leader>p :set paste!<cr>
+nnoremap <Leader>C :call SetColours()<cr> " Fix colors when they get messed
+
+" Search for 'tags' file starting in the current dir and then moving up
+set tags=tags;/
+
+" ignore white space in diff
+let g:DirDiffAddArgs = "-w"
+
+" Grepping
+set errorfile=/home/jhornsbe/errors.txt
+set path=**
+
+if system("ag -h") || !v:shell_error
+   set grepprg=ag\ --all-text\ --nogroup\ --nocolor\ --column\ --silent\ --smart-case\ --path-to-agignore\ ~/.agignore\ --skip-vcs-ignores
+elseif system("ag.fc18 -h") || !v:shell_error
+   set grepprg=ag.fc18\ --all-text\ --nogroup\ --nocolor\ --column\ --silent\ --smart-case\ --path-to-agignore\ ~/.agignore\ --skip-vcs-ignores
+elseif executable("ack")
+   set grepprg=ack\ --no-group\ -k\ --flush
+elseif executable("ack-grep")
+   set grepprg=ack-grep\ --no-group\ --flush
+else
+   set grepprg=internal
+endif
+
+" Unite plugin
+nnoremap <Leader>uu :<C-u>Unite -buffer-name=Unite -no-split -no-resize<Space>
+nnoremap <Leader>ud :<C-u>Unite -buffer-name=Directory -no-split -no-resize directory<cr>
+nnoremap <Leader>uf :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec<cr>
+" nnoremap <Leader>uF :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec:<C-r>=expand('%:h')<cr><cr>
+nnoremap <Leader>uF :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec:
+nnoremap <Leader>ub :<C-u>Unite -buffer-name=Buffers -no-split -no-resize buffer<cr>
+nnoremap <Leader>uy :<C-u>Unite -buffer-name=Yank history/yank<cr>
+nnoremap <Leader>ul :<C-u>Unite -buffer-name=Outline outline<cr>
+nnoremap <Leader>ui :<C-u>Unite -buffer-name=Lid id/lid:<C-r>=expand("<cword>")<cr><cr>
+nnoremap <Leader>uI :<C-u>Unite -buffer-name=Lid id/lid<cr>
+nnoremap <Leader>ut :<C-u>Unite -buffer-name=Tags -immediately tselect:<C-r>=expand('<cword>')<cr><cr>
+nnoremap <Leader>uT :<C-u>Unite -buffer-name=Tags -immediately tselect:
+nnoremap <Leader>uj :<C-u>Unite -buffer-name=Jumps jump<cr>
+nnoremap <Leader>ur :<C-u>Unite -buffer-name=Registers register<cr>
+nnoremap <Leader>uR :<C-u>UniteResume<cr>
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" Airline plugin
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+
+" Tagbar plugin
+map <Leader>l :TagbarToggle<CR>
+let g:tagbar_compact = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
+let g:tagbar_width = 25
+let g:tagbar_left = 1
+
+" vim-asterisk plugin
+map <silent> *  <Plug>(asterisk-z*)
+map <silent> #  <Plug>(asterisk-z#)
+map <silent> g* <Plug>(asterisk-gz*)
+map <silent> g# <Plug>(asterisk-gz#)
+
+" Gitv plugin
+let g:Gitv_DoNotMapCtrlKey = 1
+
+" Fugitive plugin
+map <Leader>g :Ggrep 
+
+" Ack plugin
+let g:ackprg = &grepprg
+map <Leader>a :Ack! 
+
+" Hugefile plugin
+let g:hugefile_trigger_size = 50

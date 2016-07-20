@@ -1,0 +1,3 @@
+tmux/plugins/**
+vim/bundle/**
+vim/.netrwhist
