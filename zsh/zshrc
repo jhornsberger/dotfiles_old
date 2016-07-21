@@ -60,7 +60,6 @@ alias vi='vim -u NONE'
 
 # Environment
 export PATH=/home/jeff/bin:$PATH
-export PYTHONPATH=$PYTHONPATH:/home/jeff/saved/gitar
 export EDITOR=vim
 export P4MERGE=amergeVim
 export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
