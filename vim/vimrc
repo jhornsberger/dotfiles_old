@@ -39,6 +39,13 @@ set nospell
 set virtualedit=all
 set complete-=i
 
+" Mouse support with tmux
+set mouse=a
+if &term =~ '^screen'
+   " tmux knows the extended mouse mode
+   set ttymouse=xterm2
+endif
+
 " Don't save options in sessions
 set sessionoptions-=options
 set sessionoptions-=folds
