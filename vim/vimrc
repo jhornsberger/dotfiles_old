@@ -1,3 +1,8 @@
+" Include Arista-specific settings
+:if filereadable( $VIM . "/vimfiles/arista.vim" )
+   let a4_auto_edit=0
+   source $VIM/vimfiles/arista.vim
+:endif
 
 " Plugins via Vundle
 set nocompatible
