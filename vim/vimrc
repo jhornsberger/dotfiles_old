@@ -76,7 +76,7 @@ set listchars=tab:»\ ,trail:·
 
 " UI stuff
 set background=light
-function SetColours()
+function! SetColours()
    try
       colorscheme solarized
    catch /^Vim\%((\a\+)\)\=:E185/
