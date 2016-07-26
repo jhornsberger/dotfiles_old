@@ -15,9 +15,9 @@ Plugin 'gregsexton/gitv'
 Plugin 'tmhedberg/matchit'
 Plugin 'vim-scripts/python_match.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'h1mesuke/unite-outline'
 Plugin 'eiiches/unite-tselect'
 Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-outline'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'haya14busa/vim-asterisk'
@@ -192,7 +192,6 @@ endif
 nnoremap <Leader>uu :<C-u>Unite -buffer-name=Unite -no-split -no-resize<Space>
 nnoremap <Leader>ud :<C-u>Unite -buffer-name=Directory -no-split -no-resize directory<cr>
 nnoremap <Leader>uf :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec<cr>
-" nnoremap <Leader>uF :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec:<C-r>=expand('%:h')<cr><cr>
 nnoremap <Leader>uF :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec:
 nnoremap <Leader>ub :<C-u>Unite -buffer-name=Buffers -no-split -no-resize buffer<cr>
 nnoremap <Leader>uy :<C-u>Unite -buffer-name=Yank history/yank<cr>
