@@ -48,9 +48,6 @@ fpath=(~/.zsh/completions $fpath)
 autoload -U compinit
 compinit
 
-# dircolors
-eval `dircolors ~/.dir_colors`
-
 # Options
 setopt hist_ignore_all_dups inc_append_history hist_save_no_dups hist_reduce_blanks hist_ignore_space
 setopt interactivecomments
