@@ -7,3 +7,5 @@
 	tool = vimdiff
 [alias]
 	onelog = log --oneline --decorate --graph
+[push]
+	default = simple
