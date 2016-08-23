@@ -199,6 +199,9 @@ else
    set grepprg=internal
 endif
 
+" Allow netrw to delete non-empty directories
+let g:netrw_localrmdir='rm -r'
+
 " Unite plugin
 nnoremap <Leader>uu :<C-u>Unite -buffer-name=Unite -no-split -no-resize<Space>
 nnoremap <Leader>ud :<C-u>Unite -buffer-name=Directory -no-split -no-resize directory<cr>
