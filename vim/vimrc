@@ -166,6 +166,17 @@ nnoremap <Leader>c :close<cr>
 nnoremap <Leader>p :set paste!<cr>
 nnoremap <Leader>C :call SetColours()<cr> " Fix colors when they get messed
 
+" Highlight long lines (based on textwidth)
+nnoremap <silent> <Leader>L
+      \ :if exists('w:long_line_match') <Bar>
+      \   silent! call matchdelete(w:long_line_match) <Bar>
+      \   unlet w:long_line_match <Bar>
+      \ elseif &textwidth > 0 <Bar>
+      \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
+      \ else <Bar>
+      \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
+      \ endif<CR>
+
 " Search for 'tags' file starting in the current dir and then moving up
 set tags=tags;/
 
