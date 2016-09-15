@@ -28,6 +28,7 @@ Plugin 'mhinz/vim-hugefile'
 Plugin 'tpope/vim-jdaddy'
 Plugin 'tpope/vim-surround'
 Plugin 'tex/vim-unite-id'
+Plugin 'vim-scripts/DirDiff.vim'
 call vundle#end()
 filetype plugin indent on
 
