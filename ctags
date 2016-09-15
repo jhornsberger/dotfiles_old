@@ -1,0 +1,6 @@
+--langdef=tacc
+--langmap=tacc:.tac
+--regex-tacc=/^\s*([a-zA-Z0-9_]+)\s*:\s*Tac::Type/\1/d,definition/
+--langmap=c++:+.tin
+--langmap=c++:+.itin
+--exclude=.git
