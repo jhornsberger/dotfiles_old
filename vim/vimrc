@@ -5,34 +5,32 @@
 :endif
 
 " Plugins via Vundle
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'gregsexton/gitv'
-Plugin 'tmhedberg/matchit'
-Plugin 'vim-scripts/python_match.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'eiiches/unite-tselect'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/unite-outline'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'haya14busa/vim-asterisk'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'kana/vim-fakeclip'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mhinz/vim-hugefile'
-Plugin 'tpope/vim-jdaddy'
-Plugin 'tpope/vim-surround'
-Plugin 'tex/vim-unite-id'
-Plugin 'vim-scripts/DirDiff.vim'
-call vundle#end()
-filetype plugin indent on
+call plug#begin()
+Plug 'VundleVim/Vundle.vim'
+Plug 'mileszs/ack.vim'
+Plug 'gregsexton/gitv'
+Plug 'tmhedberg/matchit'
+Plug 'vim-scripts/python_match.vim'
+Plug 'majutsushi/tagbar'
+Plug 'eiiches/unite-tselect'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'haya14busa/vim-asterisk'
+Plug 'flazz/vim-colorschemes'
+Plug 'kana/vim-fakeclip'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-hugefile'
+Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-surround'
+Plug 'tex/vim-unite-id'
+Plug 'vim-scripts/DirDiff.vim'
+call plug#end()
 
 " Options for editing
+set nocompatible
+filetype plugin indent on
 set shiftwidth=3
 set tabstop=3
 set linebreak
