@@ -1,8 +1,8 @@
 " Include Arista-specific settings
-:if filereadable( $VIM . "/vimfiles/arista.vim" )
+if filereadable( $VIM . "/vimfiles/arista.vim" )
    let a4_auto_edit=0
    source $VIM/vimfiles/arista.vim
-:endif
+endif
 
 " Plugins via Vundle
 call plug#begin()
@@ -136,8 +136,9 @@ set diffopt=filler,vertical
 " Automatically diffupdate on write
 autocmd vimrc BufWritePost * if &diff == 1 | diffupdate | endif
 
-" Always move quickfix list to the bottom of the window
+" Always move some windows to the bottom
 autocmd vimrc FileType qf wincmd J
+autocmd vimrc FileType gitcommit wincmd J
 
 " Treat *.md files as markdown instead of Modula-2
 autocmd vimrc BufNewFile,BufReadPost *.md set filetype=markdown
@@ -185,17 +186,12 @@ nnoremap <silent> <Leader>L
 " Search for 'tags' file starting in the current dir and then moving up
 set tags=tags;/
 
-" ignore white space in diff
-let g:DirDiffAddArgs = "-w"
-
 " Grepping
 set errorfile=/home/jhornsbe/errors.txt
 set path=**
 
 if system("ag -h") || !v:shell_error
    set grepprg=ag\ --all-text\ --nogroup\ --nocolor\ --column\ --silent\ --smart-case\ --path-to-agignore\ ~/.agignore\ --skip-vcs-ignores
-elseif system("ag.fc18 -h") || !v:shell_error
-   set grepprg=ag.fc18\ --all-text\ --nogroup\ --nocolor\ --column\ --silent\ --smart-case\ --path-to-agignore\ ~/.agignore\ --skip-vcs-ignores
 elseif executable("ack")
    set grepprg=ack\ --no-group\ -k\ --flush
 elseif executable("ack-grep")
@@ -237,7 +233,6 @@ map <Leader>l :TagbarToggle<CR>
 let g:tagbar_compact = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
-let g:tagbar_width = 25
 let g:tagbar_left = 1
 let g:tagbar_type_tac = {
    \ 'ctagstype' : 'tacc',
@@ -265,3 +260,7 @@ map <Leader>a :Ack!
 
 " Hugefile plugin
 let g:hugefile_trigger_size = 50
+
+" DirDiff plugin
+" ignore white space in diff
+let g:DirDiffAddArgs = "-w"
