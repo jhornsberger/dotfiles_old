@@ -27,6 +27,7 @@ Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-surround'
 Plug 'tex/vim-unite-id'
 Plug 'vim-scripts/DirDiff.vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 call plug#end()
 
 " Options for editing
@@ -97,6 +98,7 @@ set incsearch
 set showcmd
 set wildmenu
 set lazyredraw
+set autoread
 
 " Highlight cursor line only in current window
 augroup CulHighlight
