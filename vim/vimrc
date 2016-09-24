@@ -12,10 +12,6 @@ Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/python_match.vim'
 Plug 'majutsushi/tagbar'
-Plug 'eiiches/unite-tselect'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'haya14busa/vim-asterisk'
@@ -28,6 +24,8 @@ Plug 'tpope/vim-surround'
 Plug 'tex/vim-unite-id'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'd11wtq/ctrlp_bdelete.vim'
 call plug#end()
 
 " Options for editing
@@ -203,25 +201,6 @@ endif
 " Allow netrw to delete non-empty directories
 let g:netrw_localrmdir='rm -r'
 
-" Unite plugin
-nnoremap <Leader>uu :<C-u>Unite -buffer-name=Unite -no-split -no-resize<Space>
-nnoremap <Leader>ud :<C-u>Unite -buffer-name=Directory -no-split -no-resize directory<cr>
-nnoremap <Leader>uf :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec<cr>
-nnoremap <Leader>uF :<C-u>Unite -buffer-name=Files -no-split -no-resize -start-insert file_rec:
-nnoremap <Leader>ub :<C-u>Unite -buffer-name=Buffers -no-split -no-resize buffer<cr>
-nnoremap <Leader>uy :<C-u>Unite -buffer-name=Yank history/yank<cr>
-nnoremap <Leader>ul :<C-u>Unite -buffer-name=Outline outline<cr>
-nnoremap <Leader>ui :<C-u>Unite -buffer-name=Lid id/lid:<C-r>=expand("<cword>")<cr><cr>
-nnoremap <Leader>uI :<C-u>Unite -buffer-name=Lid id/lid<cr>
-nnoremap <Leader>ut :<C-u>Unite -buffer-name=Tags -immediately tselect:<C-r>=expand('<cword>')<cr><cr>
-nnoremap <Leader>uT :<C-u>Unite -buffer-name=Tags -immediately tselect:
-nnoremap <Leader>uj :<C-u>Unite -buffer-name=Jumps jump<cr>
-nnoremap <Leader>ur :<C-u>Unite -buffer-name=Registers register<cr>
-nnoremap <Leader>ug :<C-u>Unite -buffer-name=Git -no-split -no-resize -start-insert file_rec/git<cr>
-nnoremap <Leader>uR :<C-u>UniteResume<cr>
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
 " Airline plugin
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -264,3 +243,17 @@ let g:hugefile_trigger_size = 50
 " DirDiff plugin
 " ignore white space in diff
 let g:DirDiffAddArgs = "-w"
+
+" CtrlP plugin
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix']
+if executable('ag')
+   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+let g:ctrlp_map = '<Leader>p'
+map <silent> <Leader>f :CtrlP<cr>
+map <silent> <Leader>r :CtrlPMRU<cr>
+map <silent> <Leader>b :CtrlPBuffer<cr>
+map <silent> <Leader>t :CtrlPBufTag<cr>
+map <silent> <Leader>T :CtrlPTag<cr>
+map <silent> <Leader>q :CtrlPQuickfix<cr>
+call ctrlp_bdelete#init()
