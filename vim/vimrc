@@ -246,7 +246,7 @@ let g:DirDiffAddArgs = "-w"
 
 " CtrlP plugin
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix']
-if executable('ag')
+if system("ag -h") || !v:shell_error
    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 let g:ctrlp_map = '<Leader>p'
