@@ -9,7 +9,7 @@
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 # list of files/folders to symlink in homedir
-files="ackrc agignore ctags ctags_packages gitconfig inputrc my.cnf tmux vim zsh"
+files="ackrc agignore ctags gitconfig inputrc my.cnf tmux vim zsh"
 
 ##########
 
