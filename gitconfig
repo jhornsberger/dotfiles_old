@@ -6,6 +6,7 @@
 [merge]
 	tool = vimdiff
 [alias]
-	onelog = log --oneline --decorate --graph
+	alog = log --oneline --decorate --graph --branches --tags --remotes
+	blog = log --oneline --decorate --graph
 [push]
 	default = simple
