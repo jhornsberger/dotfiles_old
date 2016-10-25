@@ -26,6 +26,8 @@ Plug 'vim-scripts/DirDiff.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'd11wtq/ctrlp_bdelete.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'bps/vim-textobj-python'
 call plug#end()
 
 " Options for editing
