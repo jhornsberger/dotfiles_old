@@ -144,6 +144,9 @@ autocmd vimrc FileType gitcommit wincmd J
 autocmd vimrc BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd vimrc BufNewFile,BufReadPost *.md set textwidth=0
 
+" Special textwidth gitcommit
+autocmd vimrc FileType gitcommit setlocal textwidth=72
+
 " Treat *.*tin files as C++
 autocmd vimrc BufNewFile,BufReadPost *.*tin set filetype=cpp
 
