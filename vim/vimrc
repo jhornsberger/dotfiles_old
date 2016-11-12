@@ -24,7 +24,6 @@ Plug 'tex/vim-unite-id'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'd11wtq/ctrlp_bdelete.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
 call plug#end()
@@ -253,6 +252,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix']
 if system("ag -h") || !v:shell_error
    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+let g:ctrlp_switch_buffer = ''
 let g:ctrlp_map = '<Leader>p'
 map <silent> <Leader>f :CtrlP<cr>
 map <silent> <Leader>r :CtrlPMRU<cr>
@@ -260,4 +260,3 @@ map <silent> <Leader>b :CtrlPBuffer<cr>
 map <silent> <Leader>t :CtrlPBufTag<cr>
 map <silent> <Leader>T :CtrlPTag<cr>
 map <silent> <Leader>q :CtrlPQuickfix<cr>
-call ctrlp_bdelete#init()
