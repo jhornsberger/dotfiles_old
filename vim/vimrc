@@ -4,9 +4,8 @@ if filereadable( $VIM . "/vimfiles/arista.vim" )
    source $VIM/vimfiles/arista.vim
 endif
 
-" Plugins via Vundle
+" Plugins via Vim-Plug
 call plug#begin()
-Plug 'VundleVim/Vundle.vim'
 Plug 'mileszs/ack.vim'
 Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
