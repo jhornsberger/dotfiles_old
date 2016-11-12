@@ -10,7 +10,7 @@ bindkey -v
 # Prompt
 function precmd {
    # check a4 chroot
-   if ! command -v a4 || [[ -n "${A4_CHROOT}" ]]; then
+   if ! command -v a4 >/dev/null 2>&1 || [[ -n "${A4_CHROOT}" ]]; then
       PR_CHROOT_COL="yellow"
    else
       PR_CHROOT_COL="red"
