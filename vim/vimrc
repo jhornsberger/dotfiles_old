@@ -26,6 +26,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
+Plug 'kana/vim-textobj-diff'
 call plug#end()
 
 " Options for editing
@@ -260,3 +261,10 @@ map <silent> <Leader>b :CtrlPBuffer<cr>
 map <silent> <Leader>t :CtrlPBufTag<cr>
 map <silent> <Leader>T :CtrlPTag<cr>
 map <silent> <Leader>q :CtrlPQuickfix<cr>
+
+" vim-textobj-diff plugin
+"let g:textobj_diff_no_default_key_mappings = 1
+nmap <silent> ]df <Plug>(textobj-diff-file-n)
+nmap <silent> [df <Plug>(textobj-diff-file-p)
+nmap <silent> ]dh <Plug>(textobj-diff-hunk-n)
+nmap <silent> [dh <Plug>(textobj-diff-hunk-p)
