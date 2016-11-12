@@ -233,6 +233,7 @@ map <silent> g# <Plug>(asterisk-gz#)
 
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
+nnoremap <Leader>G :Gitv<cr>
 
 " Fugitive plugin
 map <Leader>g :Ggrep 
