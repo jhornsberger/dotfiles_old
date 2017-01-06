@@ -244,7 +244,7 @@ let g:ackprg = &grepprg
 map <Leader>a :Ack! 
 
 " Hugefile plugin
-let g:hugefile_trigger_size = 50
+let g:hugefile_trigger_size = 10
 
 " DirDiff plugin
 " ignore white space in diff
