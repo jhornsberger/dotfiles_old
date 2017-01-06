@@ -6,7 +6,8 @@
 [merge]
 	tool = vimdiff
 [alias]
-	alog = log --oneline --decorate --graph --branches --tags --remotes
-	blog = log --oneline --decorate --graph
+	logma = log --oneline --decorate --graph --branches --tags --remotes master~1..
+	loga = log --oneline --decorate --graph --branches --tags --remotes
+	logb = log --oneline --decorate --graph
 [push]
 	default = simple
