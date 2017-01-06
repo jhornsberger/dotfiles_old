@@ -27,6 +27,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
 Plug 'kana/vim-textobj-diff'
+Plug 'derekwyatt/vim-fswitch'
 call plug#end()
 
 " Options for editing
@@ -269,3 +270,8 @@ nmap <silent> ]df <Plug>(textobj-diff-file-n)
 nmap <silent> [df <Plug>(textobj-diff-file-p)
 nmap <silent> ]dh <Plug>(textobj-diff-hunk-n)
 nmap <silent> [dh <Plug>(textobj-diff-hunk-p)
+
+" vim-fswitch plugin
+autocmd vimrc BufEnter *.*tin let b:fswitchdst = 'tac' | let b:fswitchlocs = './'
+autocmd vimrc BufEnter *.tac let b:fswitchdst = 'tin,itin' | let b:fswitchlocs = './'
+nmap <silent> <Leader>of :FSHere<cr>
