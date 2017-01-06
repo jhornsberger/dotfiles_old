@@ -165,15 +165,15 @@ nnoremap j gj
 nnoremap k gk
 cmap w!! %!sudo tee > /dev/null %
 noremap <silent><Leader>/ :nohls<CR>
-nnoremap <Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
-nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
-nnoremap <Leader>\| :vsp<cr>
-nnoremap <Leader>- :sp<cr>
-nnoremap <Leader>= <C-w>=
-nnoremap <Leader>o :only<cr>
-nnoremap <Leader>c :close<cr>
-nnoremap <Leader>P :set paste!<cr>
-nnoremap <Leader>C :call SetColours()<cr> " Fix colors when they get messed
+nnoremap <silent><Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
+nnoremap <silent><Leader>ls :source ~/.vim_session<CR>     " And load session
+nnoremap <silent><Leader>\| :vsp<cr>
+nnoremap <silent><Leader>- :sp<cr>
+nnoremap <silent><Leader>= <C-w>=
+nnoremap <silent><Leader>o :only<cr>
+nnoremap <silent><Leader>c :close<cr>
+nnoremap <silent><Leader>P :set paste!<cr>
+nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
 
 " Highlight long lines (based on textwidth)
 nnoremap <silent> <Leader>L
