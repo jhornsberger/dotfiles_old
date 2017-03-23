@@ -15,12 +15,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'haya14busa/vim-asterisk'
 Plug 'flazz/vim-colorschemes'
-Plug 'kana/vim-fakeclip'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-hugefile'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-surround'
-Plug 'tex/vim-unite-id'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -28,6 +26,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
 Plug 'kana/vim-textobj-diff'
 Plug 'derekwyatt/vim-fswitch'
+Plug 'tpope/vim-eunuch'
 call plug#end()
 
 " Options for editing
@@ -157,16 +156,15 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <Leader>tc :tabclose<return>
-nnoremap <Leader>tn :tabnew<return>
+nnoremap <silent><Leader>tc :tabclose<return>
+nnoremap <silent><Leader>tn :tabnew<return>
 nnoremap <Leader>te :tabedit<space>
 nnoremap <Leader>tm :tabmove<space>
 nnoremap j gj
 nnoremap k gk
-cmap w!! %!sudo tee > /dev/null %
 noremap <silent><Leader>/ :nohls<CR>
-nnoremap <silent><Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
-nnoremap <silent><Leader>ls :source ~/.vim_session<CR>     " And load session
+nnoremap <Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
+nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
 nnoremap <silent><Leader>\| :vsp<cr>
 nnoremap <silent><Leader>- :sp<cr>
 nnoremap <silent><Leader>= <C-w>=
@@ -175,6 +173,17 @@ nnoremap <silent><Leader>c :close<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
 nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
 nnoremap <silent><Leader>tt :terminal<cr>
+
+" Print link to current P4 file/line
+function! P4Link()
+   let l:link = expand( "%:p" )
+   let l:link = system( "a4 have " . l:link )
+   let l:link = substitute( l:link, "^//", "http://", "" )
+   let l:link = substitute( l:link, '#\(\d\+\).*$', '@rev\1', "" )
+   let l:link .= "#line-" . line( "." )
+   echom l:link
+endfunction
+nnoremap <silent><Leader>s :call P4Link()<cr>
 
 " Terminal
 if has( "nvim" )
@@ -242,9 +251,15 @@ map <silent> g# <Plug>(asterisk-gz#)
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <Leader>G :Gitv<cr>
+nnoremap <Leader>G! :Gitv!<cr>
 
 " Fugitive plugin
-map <Leader>g :Ggrep 
+map <Leader>gg :Ggrep 
+map <Leader>gs :Gstatus<cr>
+map <Leader>ge :Gedit 
+map <Leader>gd :Gdiff 
+map <Leader>gc :Gcommit 
+map <Leader>gb :Gblame<cr>
 
 " Ack plugin
 let g:ackprg = &grepprg
@@ -279,6 +294,7 @@ nmap <silent> ]dh <Plug>(textobj-diff-hunk-n)
 nmap <silent> [dh <Plug>(textobj-diff-hunk-p)
 
 " vim-fswitch plugin
+let g:fsnonewfiles = 'on'
 autocmd vimrc BufEnter *.*tin let b:fswitchdst = 'tac' | let b:fswitchlocs = './'
 autocmd vimrc BufEnter *.tac let b:fswitchdst = 'tin,itin' | let b:fswitchlocs = './'
 nmap <silent> <Leader>of :FSHere<cr>
