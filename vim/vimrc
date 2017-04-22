@@ -6,7 +6,6 @@ endif
 
 " Plugins via Vim-Plug
 call plug#begin()
-Plug 'mileszs/ack.vim'
 Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/python_match.vim'
@@ -214,16 +213,6 @@ set tags=tags;/
 set errorfile=/home/jhornsbe/errors.txt
 set path=**
 
-if system("ag -h") || !v:shell_error
-   set grepprg=ag\ --all-text\ --nogroup\ --nocolor\ --column\ --silent\ --smart-case\ --path-to-agignore\ ~/.agignore\ --skip-vcs-ignores
-elseif executable("ack")
-   set grepprg=ack\ --no-group\ -k\ --flush
-elseif executable("ack-grep")
-   set grepprg=ack-grep\ --no-group\ --flush
-else
-   set grepprg=internal
-endif
-
 " Allow netrw to delete non-empty directories
 let g:netrw_localrmdir='rm -r'
 
@@ -264,10 +253,6 @@ map <Leader>ge :Gedit<space>
 map <Leader>gd :Gdiff<space>
 map <Leader>gc :Gcommit<space>
 map <silent> <Leader>gb :Gblame<cr>
-
-" Ack plugin
-let g:ackprg = &grepprg
-map <Leader>a :Ack! 
 
 " Hugefile plugin
 let g:hugefile_trigger_size = 10
