@@ -162,6 +162,8 @@ nnoremap <silent><Leader>tc :tabclose<return>
 nnoremap <silent><Leader>tn :tabnew<return>
 nnoremap <Leader>te :tabedit<space>
 nnoremap <Leader>tm :tabmove<space>
+nnoremap <silent><Leader>co :copen<return>
+nnoremap <silent><Leader>cc :cclose<return>
 nnoremap j gj
 nnoremap k gk
 noremap <silent><Leader>/ :nohls<CR>
@@ -253,16 +255,15 @@ map <silent> g# <Plug>(asterisk-gz#)
 
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
-nnoremap <Leader>G :Gitv<cr>
-nnoremap <Leader>G! :Gitv!<cr>
+nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
+nnoremap <silent> <Leader>gv! :Gitv!<cr>
 
 " Fugitive plugin
-map <Leader>gg :Ggrep 
-map <Leader>gs :Gstatus<cr>
-map <Leader>ge :Gedit 
-map <Leader>gd :Gdiff 
-map <Leader>gc :Gcommit 
-map <Leader>gb :Gblame<cr>
+map <silent> <Leader>gs :Gstatus<cr>
+map <Leader>ge :Gedit<space>
+map <Leader>gd :Gdiff<space>
+map <Leader>gc :Gcommit<space>
+map <silent> <Leader>gb :Gblame<cr>
 
 " Ack plugin
 let g:ackprg = &grepprg
