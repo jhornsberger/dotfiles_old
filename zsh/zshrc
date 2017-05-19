@@ -58,6 +58,7 @@ alias notify='echo -e "\a"'
 alias tnest='(unset TMUX; tmux)'
 alias vi='vim -u NONE'
 alias rg='rg --smart-case --type-add "ar:*.{tac,tin,py,ar,am}" --type-add "tac:*.tac" --type-add "tin:*.tin" --no-ignore --color=always'
+alias a4chroot='tmux set-option @a4chroot $PWD && a4 chroot -i'
 
 # Environment
 export PATH=/home/jeff/bin:$PATH
