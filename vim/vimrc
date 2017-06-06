@@ -6,6 +6,7 @@ endif
 
 " Plugins via Vim-Plug
 call plug#begin()
+Plug 'tpope/vim-sensible'
 Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/python_match.vim'
@@ -31,18 +32,14 @@ call plug#end()
 
 " Options for editing
 set nocompatible
-filetype plugin indent on
 set shiftwidth=3
 set tabstop=3
 set linebreak
 set textwidth=85
 set cindent
-set autoindent
-set smarttab
 set expandtab
 set nospell
 set virtualedit=all
-set complete-=i
 set history=5000
 
 " Mouse support with tmux
@@ -52,24 +49,16 @@ if &term =~ '^screen'
    set ttymouse=xterm2
 endif
 
-" Don't save options in sessions
-set sessionoptions-=options
-set sessionoptions-=folds
-
 " Make splits appear as expected
 set splitbelow
 set splitright
 
 " Prevent key pauses
 set timeout
-set ttimeout
 set timeoutlen=1000
-set ttimeoutlen=0
 
 " Options for setting the bottom 2 lines
 set showmode
-set laststatus=2
-set ruler
 
 " Show non-printing characters
 set list
@@ -86,7 +75,6 @@ function! SetColours()
 endfunction
 call SetColours()
 
-syntax enable
 set nocursorline
 set visualbell
 set ignorecase
@@ -96,9 +84,7 @@ set hidden
 set hlsearch
 set incsearch
 set showcmd
-set wildmenu
 set lazyredraw
-set autoread
 
 " Highlight cursor line only in current window
 augroup CulHighlight
