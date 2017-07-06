@@ -85,6 +85,9 @@ set hlsearch
 set incsearch
 set showcmd
 set lazyredraw
+set tags=tags;/
+set path=**
+
 
 " Highlight cursor line only in current window
 augroup CulHighlight
@@ -191,13 +194,6 @@ nnoremap <silent> <Leader>L
       \ else <Bar>
       \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
       \ endif<CR>
-
-" Search for 'tags' file starting in the current dir and then moving up
-set tags=tags;/
-
-" Grepping
-set errorfile=/home/jhornsbe/errors.txt
-set path=**
 
 " Allow netrw to delete non-empty directories
 let g:netrw_localrmdir='rm -r'
