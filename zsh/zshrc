@@ -7,6 +7,9 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
+# Colors
+eval `dircolors ~/.dircolors`
+
 # Prompt
 function precmd {
    # check a4 chroot
