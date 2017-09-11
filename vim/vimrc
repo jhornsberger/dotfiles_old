@@ -28,12 +28,16 @@ Plug 'derekwyatt/vim-fswitch'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
 call plug#end()
 
 " Options for editing
 set nocompatible
 set shiftwidth=3
 set tabstop=3
+" No, actually even for Python (thanks Neovim)
+autocmd FileType python setlocal shiftwidth=3
+autocmd FileType python setlocal tabstop=3
 set linebreak
 set textwidth=85
 set cindent
@@ -87,7 +91,6 @@ set showcmd
 set lazyredraw
 set tags=tags;/
 set path=**
-
 
 " Highlight cursor line only in current window
 augroup CulHighlight
@@ -181,7 +184,7 @@ nnoremap <silent><Leader>s :call P4Link()<cr>
 " Terminal
 if has( "nvim" )
    let g:terminal_scrollback_buffer_size=100000
-   tnoremap <Esc><Esc> <C-\><C-n>
+   "tnoremap <Esc><Esc> <C-\><C-n>
 endif
 
 " Highlight long lines (based on textwidth)
@@ -242,7 +245,7 @@ map <Leader>gc :Gcommit<space>
 map <silent> <Leader>gb :Gblame<cr>
 
 " Hugefile plugin
-let g:hugefile_trigger_size = 10
+let g:hugefile_trigger_size = 50
 
 " DirDiff plugin
 " ignore white space in diff
