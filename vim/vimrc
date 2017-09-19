@@ -1,7 +1,10 @@
 " Include Arista-specific settings
-if filereadable( $VIM . "/vimfiles/arista.vim" )
+if filereadable( "/usr/share/vim/vimfiles/arista.vim" )
    let a4_auto_edit=0
-   source $VIM/vimfiles/arista.vim
+   source /usr/share/vim/vimfiles/arista.vim
+   if has('nvim')
+      set rtp+=/usr/share/vim/vimfiles/
+   endif
 endif
 
 " Plugins via Vim-Plug
