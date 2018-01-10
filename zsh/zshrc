@@ -70,7 +70,7 @@ a4cshell() {
 
 # Environment
 export PATH=/home/jeff/bin:$PATH
-export EDITOR=vim
+export EDITOR=nvim
 export P4MERGE=amergeVim
 export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
 
