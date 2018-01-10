@@ -14,8 +14,6 @@ Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/python_match.vim'
 Plug 'majutsushi/tagbar'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'haya14busa/vim-asterisk'
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-fugitive'
@@ -32,6 +30,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 " Options for editing
@@ -209,12 +208,6 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
-" Airline plugin
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_min_count = 2
-
 " Tagbar plugin
 map <Leader>tb :TagbarToggle<CR>
 let g:tagbar_compact = 1
@@ -298,3 +291,7 @@ let g:fsnonewfiles = 'on'
 autocmd vimrc BufEnter *.*tin let b:fswitchdst = 'tac' | let b:fswitchlocs = './'
 autocmd vimrc BufEnter *.tac let b:fswitchdst = 'tin,itin' | let b:fswitchlocs = './'
 nmap <silent> <Leader>of :FSHere<cr>
+
+" Lightline plugin
+set noshowmode
+let g:lightline = { 'colorscheme': 'solarized' }
