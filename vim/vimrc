@@ -81,16 +81,17 @@ set guioptions=aeir
 set hidden
 set hlsearch
 set incsearch
+set nowrapscan
 set showcmd
 set lazyredraw
 set tags=tags;/
 set path=**
 
 " Highlight cursor line only in current window
-augroup CulHighlight
-   autocmd!
-   autocmd WinEnter * set cul
-   autocmd WinLeave * set nocul
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
 augroup END
 
 if has("gui_running")
@@ -151,7 +152,7 @@ nnoremap <silent><Leader>co :copen<return>
 nnoremap <silent><Leader>cc :cclose<return>
 nnoremap j gj
 nnoremap k gk
-noremap <silent><Leader>/ :nohls<CR>
+noremap <silent><Leader>// :nohls<CR>
 nnoremap <Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
 nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
 nnoremap <silent><Leader>\| :vsp<cr>
@@ -192,13 +193,12 @@ nnoremap <silent> <Leader>L
       \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
       \ endif<CR>
 
-" Allow netrw to delete non-empty directories
+" netrw settings
 let g:netrw_localrmdir='rm -r'
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
 let g:netrw_altv = 1
-let g:netrw_winsize = 25
+let g:netrw_winsize = 0
 
 " Tagbar plugin
 map <Leader>tb :TagbarToggle<CR>
@@ -222,6 +222,7 @@ map <silent> g# <Plug>(asterisk-gz#)
 
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
+let g:Gitv_PreviewOptions = '--notes=gitar-*'
 nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
 nnoremap <silent> <Leader>gv! :Gitv!<cr>
 
@@ -267,9 +268,9 @@ map <silent> <Leader>T :Tags<cr>
 map <silent> <Leader>m :Marks<cr>
 map <Leader>g :Rg<space>
 map <Leader>l :BLines<cr>
-map <silent> <Leader>fh :Helptags<cr>
-map <silent> <Leader>f: :History:<cr>
-map <silent> <Leader>f/ :History/<cr>
+map <silent> <Leader>h :Helptags<cr>
+map <silent> <Leader>: :History:<cr>
+map <silent> <Leader>/ :History/<cr>
 
 " vim-textobj-diff plugin
 "let g:textobj_diff_no_default_key_mappings = 1
