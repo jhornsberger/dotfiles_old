@@ -165,17 +165,6 @@ nnoremap <silent><Leader>P :set paste!<cr>
 nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
 nnoremap <silent><Leader>tt :terminal<cr>
 
-" Print link to current P4 file/line
-function! P4Link()
-   let l:link = expand( "%:p" )
-   let l:link = system( "a4 have " . l:link )
-   let l:link = substitute( l:link, "^//", "http://", "" )
-   let l:link = substitute( l:link, '#\(\d\+\).*$', '@rev\1', "" )
-   let l:link .= "#line-" . line( "." )
-   echom l:link
-endfunction
-nnoremap <silent><Leader>s :call P4Link()<cr>
-
 " Terminal
 if has( "nvim" )
    let g:terminal_scrollback_buffer_size=100000
