@@ -113,6 +113,20 @@ else
    set directory=$TEMP
 endif
 
+" Use outer host (which is running tmux) for shared clipboard
+let g:clipboard = {
+    \   'name': 'Shared Clipboard',
+    \   'copy': {
+    \      '+': 'ssh us167 ~/bin/tmux load-buffer -',
+    \      '*': 'ssh us167 ~/bin/tmux load-buffer -',
+    \    },
+    \   'paste': {
+    \      '+': 'ssh us167 ~/bin/tmux save-buffer -',
+    \      '*': 'ssh us167 ~/bin/tmux save-buffer -',
+    \   },
+    \   'cache_enabled': 1,
+    \ }
+
 " define a group `vimrc` and initialize.
 augroup vimrc
    autocmd!
