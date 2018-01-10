@@ -1,12 +1,3 @@
-" Include Arista-specific settings
-if filereadable( "/usr/share/vim/vimfiles/arista.vim" )
-   let a4_auto_edit=0
-   source /usr/share/vim/vimfiles/arista.vim
-   if has('nvim')
-      set rtp+=/usr/share/vim/vimfiles/
-   endif
-endif
-
 " Plugins via Vim-Plug
 call plug#begin()
 Plug 'tpope/vim-sensible'
@@ -30,6 +21,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
+Plug 'git@gitlab.aristanetworks.com:the_third_man/arvim.git'
 Plug 'itchyny/lightline.vim'
 call plug#end()
 
@@ -291,6 +283,9 @@ let g:fsnonewfiles = 'on'
 autocmd vimrc BufEnter *.*tin let b:fswitchdst = 'tac' | let b:fswitchlocs = './'
 autocmd vimrc BufEnter *.tac let b:fswitchdst = 'tin,itin' | let b:fswitchlocs = './'
 nmap <silent> <Leader>of :FSHere<cr>
+
+" arvim plugin
+let a4_auto_edit = 0
 
 " Lightline plugin
 set noshowmode
