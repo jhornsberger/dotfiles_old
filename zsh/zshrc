@@ -1,7 +1,7 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=50000
+SAVEHIST=50000
 setopt appendhistory autocd
 unsetopt beep
 bindkey -v
@@ -63,6 +63,7 @@ alias vi='vim -u NONE'
 alias rg='rg --smart-case --type-add "ar:*.{tac,tin,py,ar,am}" --type-add "tac:*.tac" --type-add "tin:*.tin" --no-ignore --color=always'
 alias fzf='fzf --ansi'
 alias a4chroot='tmux set-option @a4chroot $PWD && a4 chroot -i'
+alias pb='curl -F c=@- pb'
 
 # Functions
 a4cshell() {
