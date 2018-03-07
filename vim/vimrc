@@ -23,6 +23,8 @@ Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
 Plug 'git@gitlab.aristanetworks.com:the_third_man/arvim.git'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-mark'
 call plug#end()
 
 " Options for editing
@@ -166,7 +168,7 @@ nnoremap <silent><Leader>co :copen<return>
 nnoremap <silent><Leader>cc :cclose<return>
 nnoremap j gj
 nnoremap k gk
-noremap <silent><Leader>// :nohls<CR>
+noremap <silent><Leader>// :let @/ = ""<CR>
 nnoremap <Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
 nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
 nnoremap <silent><Leader>\| :vsp<cr>
@@ -266,12 +268,11 @@ map <silent> <Leader>f :Files<cr>
 map <silent> <Leader>b :Buffers<cr>
 map <silent> <Leader>t :BTags<cr>
 map <silent> <Leader>T :Tags<cr>
-map <silent> <Leader>m :Marks<cr>
 map <Leader>g :Rg<space>
 map <Leader>l :BLines<cr>
 map <silent> <Leader>h :Helptags<cr>
 map <silent> <Leader>: :History:<cr>
-map <silent> <Leader>/ :History/<cr>
+map <silent> <Leader>s :History/<cr>
 
 " vim-textobj-diff plugin
 "let g:textobj_diff_no_default_key_mappings = 1
@@ -292,3 +293,8 @@ let a4_auto_edit = 0
 " Lightline plugin
 set noshowmode
 let g:lightline = { 'colorscheme': 'solarized' }
+
+" vim-mark plugin
+let g:mwDefaultHighlightingPalette = 'maximum'
+nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
+nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
