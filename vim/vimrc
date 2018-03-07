@@ -162,6 +162,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <silent><Leader>tc :tabclose<return>
 nnoremap <silent><Leader>tn :tabnew<return>
+nnoremap <silent><Leader>to :tabonly<return>
 nnoremap <Leader>te :tabedit<space>
 nnoremap <Leader>tm :tabmove<space>
 nnoremap <silent><Leader>co :copen<return>
