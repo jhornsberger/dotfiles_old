@@ -11,3 +11,5 @@
 	logb = log --oneline --decorate --graph
 [push]
 	default = simple
+[notes]
+	displayRef = refs/notes/gitar-*
