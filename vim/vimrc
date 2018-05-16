@@ -23,7 +23,7 @@ Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
 Plug 'git@gitlab.aristanetworks.com:the_third_man/arvim.git'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
-Plug 'inkarkat/vim-ingo-library'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 call plug#end()
 
 " Options for editing
@@ -85,8 +85,11 @@ set incsearch
 set nowrapscan
 set showcmd
 set lazyredraw
+set wildmenu
+set wildmode=list:longest
 set tags=tags;/
 set path=**
+set numberwidth=1
 
 " Highlight cursor line only in current window
 augroup CursorLine
@@ -180,6 +183,7 @@ nnoremap <silent><Leader>D :bp\|bd #<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
 nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
 nnoremap <silent><Leader>tt :terminal<cr>
+nnoremap <silent><Leader>n :set number! relativenumber!<cr>
 
 " Terminal
 if has( "nvim" )
