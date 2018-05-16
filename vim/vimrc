@@ -249,6 +249,7 @@ map <Leader>ge :Gedit<space>
 map <Leader>gd :Gdiff<space>
 map <Leader>gc :Gcommit<space>
 map <silent> <Leader>gb :Gblame<cr>
+map <Leader>G :Git!<space>
 
 " Hugefile plugin
 let g:hugefile_trigger_size = 50
