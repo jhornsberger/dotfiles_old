@@ -109,6 +109,7 @@ _gen_fzf_default_opts() {
 }
 _gen_fzf_default_opts
 export FZF_DEFAULT_COMMAND='rg --files'
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

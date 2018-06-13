@@ -1,7 +1,10 @@
 --smart-case
---type-add "ar:*.{tac,tin,py,ar,am}"
---type-add "tac:*.tac"
---type-add "tin:*.tin"
+--type-add
+ar:*.{tac,tin,py,ar,am}
+--type-add
+tac:*.tac
+--type-add
+tin:*.tin
 --no-ignore-vcs
 --hidden
---color=always'
+--color=always
