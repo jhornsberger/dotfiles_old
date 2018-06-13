@@ -111,3 +111,12 @@ _gen_fzf_default_opts
 export FZF_DEFAULT_COMMAND='rg --files'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# nix configuration
+if [ -x "$HOME/bin/nix-enter" ]; then
+   if [ ! -e /nix/var/nix/profiles/default ] || [ -z ${NIX_ENTER+x} ]; then
+      export NIX_ENTER=""
+      exec "$HOME/bin/nix-enter" "/bin/zsh"
+   fi
+fi
