@@ -60,8 +60,6 @@ KEYTIMEOUT=1
 alias notify='echo -e "\a"'
 alias tnest='(unset TMUX; tmux)'
 alias vi='vim -u NONE'
-alias rg='rg --smart-case --type-add "ar:*.{tac,tin,py,ar,am}" --type-add "tac:*.tac" --type-add "tin:*.tin" --no-ignore --color=always'
-alias fzf='fzf --ansi'
 alias a4chroot='tmux set-option @a4chroot $PWD && a4 chroot -i'
 alias pb='curl -F c=@- pb'
 
@@ -106,9 +104,10 @@ _gen_fzf_default_opts() {
   export FZF_DEFAULT_OPTS="
     --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
     --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+    --ansi
   "
 }
 _gen_fzf_default_opts
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
