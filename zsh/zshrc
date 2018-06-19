@@ -8,7 +8,9 @@ bindkey -v
 # End of lines configured by zsh-newuser-install
 
 # Colors
-eval `dircolors ~/.dircolors`
+if [ -x "$(command -v dircolors)" ]; then
+   eval `dircolors ~/.dircolors`
+fi
 
 # Prompt
 function precmd {
