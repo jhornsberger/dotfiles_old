@@ -7,4 +7,4 @@ tac:*.tac
 tin:*.tin
 --no-ignore-vcs
 --hidden
---color=always
+--color=auto
