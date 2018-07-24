@@ -79,8 +79,6 @@ set incsearch
 set nowrapscan
 set showcmd
 set lazyredraw
-set wildmenu
-set wildmode=list:longest
 set tags=tags;/
 set path=**
 set numberwidth=1
@@ -115,12 +113,12 @@ endif
 let g:clipboard = {
     \   'name': 'Shared Clipboard',
     \   'copy': {
-    \      '+': 'ssh us167 ~/bin/tmux load-buffer -',
-    \      '*': 'ssh us167 ~/bin/tmux load-buffer -',
+    \      '+': 'ssh us167 tmux load-buffer -',
+    \      '*': 'ssh us167 tmux load-buffer -',
     \    },
     \   'paste': {
-    \      '+': 'ssh us167 ~/bin/tmux save-buffer -',
-    \      '*': 'ssh us167 ~/bin/tmux save-buffer -',
+    \      '+': 'ssh us167 tmux save-buffer -',
+    \      '*': 'ssh us167 tmux save-buffer -',
     \   },
     \   'cache_enabled': 1,
     \ }
@@ -271,7 +269,7 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-command! -bang -nargs=* Rg
+command! -bang -nargs=* -complete=file Rg
 \ call fzf#vim#grep(
 \   'rg --vimgrep '.<q-args>, 1,
 \   <bang>0 ? fzf#vim#with_preview('up:60%')
