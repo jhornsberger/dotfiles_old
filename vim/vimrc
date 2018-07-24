@@ -24,6 +24,7 @@ Plug 'git@gitlab.aristanetworks.com:the_third_man/arvim.git'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " Options for editing
@@ -55,10 +56,6 @@ set timeoutlen=1000
 
 " Options for setting the bottom 2 lines
 set showmode
-
-" Show non-printing characters
-set list
-set listchars=tab:»\ ,trail:·
 
 " UI stuff
 set background=light
@@ -187,6 +184,10 @@ if has( "nvim" )
    let g:terminal_scrollback_buffer_size=100000
    "tnoremap <Esc><Esc> <C-\><C-n>
 endif
+
+" Show hidden characters
+nnoremap <silent><Leader>H :set list!<cr>
+set listchars=tab:»\ ,trail:·
 
 " Highlight long lines (based on textwidth)
 nnoremap <silent> <Leader>L
