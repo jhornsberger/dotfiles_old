@@ -4,7 +4,7 @@
 --langmap=c++:+.itin
 --langdef=tacc
 --langmap=tacc:.tac
---regex-tacc=/^[ \t]*([A-Za-z0-9_]+)[\t]*:/\1/d,definition/
+--regex-tacc=/^[ \t]*([A-Za-z0-9_]+)[ \t]*:/\1/d,definition/
 --regex-tacc=/^[ \t]*([A-Za-z0-9_]+)[ \t]*;/\1/e,enumerators/
 --regex-tacc=/^[ \t]*([A-Za-z0-9_]+)[ \t]*;/\1_/e,enumerators/
 --extra=+fq
