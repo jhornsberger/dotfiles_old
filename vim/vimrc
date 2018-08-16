@@ -41,8 +41,9 @@ set history=5000
 
 " Mouse support with tmux
 set mouse=a
-if &term =~ '^screen'
+if &term =~ '^screen' && !has('nvim')
    " tmux knows the extended mouse mode
+   " option was removed from Neovim
    set ttymouse=xterm2
 endif
 
