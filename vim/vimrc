@@ -80,7 +80,7 @@ set lazyredraw
 set tags=tags;/
 set path=**
 set numberwidth=1
-set timeoutlen=500
+set timeoutlen=700
 
 " Highlight cursor line only in current window
 augroup CursorLine
@@ -146,6 +146,9 @@ autocmd vimrc FileType gitcommit setlocal textwidth=72
 " Treat *.*tin files as C++
 autocmd vimrc BufNewFile,BufReadPost *.*tin set filetype=cpp
 
+" Longer lines in go files
+autocmd vimrc FileType go setlocal textwidth=100
+
 " Mappings
 let g:mapleader = "\<Space>"
 map Y y$
@@ -168,7 +171,7 @@ nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
 nnoremap <silent><Leader>\| :vsp<cr>
 nnoremap <silent><Leader>- :sp<cr>
 nnoremap <silent><Leader>= <C-w>=
-nnoremap <silent><Leader>o :only<cr>
+nnoremap <silent><Leader>o :resize \| vertical resize<cr>
 nnoremap <silent><Leader>c :close<cr>
 nnoremap <silent><Leader>D :bp\|bd #<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
