@@ -234,18 +234,8 @@ map <silent> g* <Plug>(asterisk-gz*)
 map <silent> g# <Plug>(asterisk-gz#)
 
 "" gv plugin
-function! GvStash()
-   let stashes = system('git reflog show --format="%h" stash')
-   let stashList = split( stashes )
-   if len( stashList )
-      execute "GV " . join( stashList )
-   else
-      echo "No stashes"
-   endif
-endfunction
-nmap <silent> <Leader>gv :GV --branches --tags --remotes<cr>
-nmap <silent> <Leader>gv! :GV! --branches --tags --remotes<cr>
-nmap <silent> <Leader>gvs :call GvStash()<cr>
+nnoremap <silent> <Leader>gv :GV --branches --tags --remotes<cr>
+nnoremap <silent> <Leader>gv! :GV! --branches --tags --remotes<cr>
 
 " Fugitive plugin
 map <silent> <Leader>gs :Gstatus<cr>
