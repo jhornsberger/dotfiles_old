@@ -80,7 +80,7 @@ set lazyredraw
 set tags=tags;/
 set path=**
 set numberwidth=1
-set timeoutlen=700
+set timeoutlen=1000
 
 " Highlight cursor line only in current window
 augroup CursorLine
@@ -189,11 +189,28 @@ if has( "nvim" )
    nnoremap <silent><Leader>tt :terminal<cr>
    autocmd vimrc TermOpen * nnoremap <buffer> <silent><Leader>D <Cmd>bp\|bd! #<cr>
    autocmd vimrc TermOpen * nnoremap <buffer> <silent><cr> <Cmd>startinsert!<cr>
+elseif has( "terminal" )
+   tnoremap <Esc><Esc> <C-W>N
+   tnoremap <silent><C-J> <C-W>j
+   tnoremap <silent><C-K> <C-W>k
+   tnoremap <silent><C-L> <C-W>l
+   tnoremap <silent><C-H> <C-W>h
+   nnoremap <silent><Leader>tt :terminal<cr>
+   nnoremap <silent><Leader>vtt :vertical terminal<cr>
+   nnoremap <silent><Leader>TT :terminal<space>
+   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> A | endif
+   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><Leader>D :bp\|bd! #<cr> |endif
+   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><Leader>D :bp\|bd! #<cr> |endif
+   set termwinscroll=100000
+
+   " vim-tmux-focus-events plugin doesn't support terminal
+   tnoremap <silent> <F24> <Nop>
+   tnoremap <silent> <F25> <Nop>
 endif
 
 " Show hidden characters
 nnoremap <silent><Leader>H :set list!<cr>
-set listchars=tab:»\ ,trail:·
+set listchars=tab:>-,trail:-
 
 " Highlight long lines (based on textwidth)
 nnoremap <silent> <Leader>L
@@ -235,7 +252,7 @@ map <silent> g# <Plug>(asterisk-gz#)
 
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
-let g:Gitv_PreviewOptions = '--notes=gitar-*'
+"let g:Gitv_PreviewOptions = '--notes=gitar-*'
 nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
 nnoremap <silent> <Leader>gv! :Gitv!<cr>
 
@@ -245,7 +262,7 @@ map <Leader>ge :Gedit<space>
 map <Leader>gd :Gdiff<space>
 map <Leader>gc :Gcommit<space>
 map <silent> <Leader>gb :Gblame<cr>
-map <Leader>G :Git!<space>
+map <Leader>G :Git<space>
 
 " Hugefile plugin
 let g:hugefile_trigger_size = 50
@@ -305,3 +322,7 @@ let a4_auto_edit = 0
 " Lightline plugin
 set noshowmode
 let g:lightline = { 'colorscheme': 'solarized' }
+
+" vim-go plugin
+autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>t :GoDecls<cr>
+autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>T :GoDeclsDir<cr>
