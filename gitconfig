@@ -2,7 +2,7 @@
 	name = Jeff Hornsberger
 	email = jeff@arista.com
 [core]
-	editor = nvim
+	editor = vim
 [merge]
 	tool = vimdiff
 [alias]
@@ -11,5 +11,5 @@
 	logb = log --oneline --decorate --graph
 [push]
 	default = simple
-[notes]
-	displayRef = refs/notes/gitar-*
+#[notes]
+#	displayRef = refs/notes/gitar-*

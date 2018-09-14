@@ -172,6 +172,7 @@ nnoremap <silent><Leader>\| :vsp<cr>
 nnoremap <silent><Leader>- :sp<cr>
 nnoremap <silent><Leader>= <C-w>=
 nnoremap <silent><Leader>o :resize \| vertical resize<cr>
+nnoremap <silent><Leader>O :only<cr>
 nnoremap <silent><Leader>c :close<cr>
 nnoremap <silent><Leader>D :bp\|bd #<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
@@ -326,3 +327,4 @@ let g:lightline = { 'colorscheme': 'solarized' }
 " vim-go plugin
 autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>t :GoDecls<cr>
 autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>T :GoDeclsDir<cr>
+let g:go_fmt_autosave=0
