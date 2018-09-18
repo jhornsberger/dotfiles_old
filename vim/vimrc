@@ -198,7 +198,7 @@ elseif has( "terminal" )
    tnoremap <silent><C-H> <C-W>h
    nnoremap <silent><Leader>tt :terminal<cr>
    nnoremap <silent><Leader>vtt :vertical terminal<cr>
-   nnoremap <silent><Leader>TT :terminal<space>
+   nnoremap <silent><Leader>TT :terminal ++curwin<cr>
    autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> A | endif
    autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><Leader>D :bp\|bd! #<cr> |endif
    autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><Leader>D :bp\|bd! #<cr> |endif
