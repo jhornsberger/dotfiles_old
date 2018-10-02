@@ -175,6 +175,7 @@ nnoremap <silent><Leader>o :resize \| vertical resize<cr>
 nnoremap <silent><Leader>O :only<cr>
 nnoremap <silent><Leader>c :close<cr>
 nnoremap <silent><Leader>D :bp\|bd #<cr>
+nnoremap <silent><Leader>DD :bp\|bd! #<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
 nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
 nnoremap <silent><Leader>n :set number! relativenumber!<cr>
@@ -188,7 +189,6 @@ if has( "nvim" )
    tnoremap <silent><C-L> <Cmd>wincmd l<cr>
    tnoremap <silent><C-H> <Cmd>wincmd h<cr>
    nnoremap <silent><Leader>tt :terminal<cr>
-   autocmd vimrc TermOpen * nnoremap <buffer> <silent><Leader>D <Cmd>bp\|bd! #<cr>
    autocmd vimrc TermOpen * nnoremap <buffer> <silent><cr> <Cmd>startinsert!<cr>
 elseif has( "terminal" )
    tnoremap <Esc><Esc> <C-W>N
@@ -196,12 +196,11 @@ elseif has( "terminal" )
    tnoremap <silent><C-K> <C-W>k
    tnoremap <silent><C-L> <C-W>l
    tnoremap <silent><C-H> <C-W>h
-   nnoremap <silent><Leader>tt :terminal<cr>
-   nnoremap <silent><Leader>vtt :vertical terminal<cr>
-   nnoremap <silent><Leader>TT :terminal ++curwin<cr>
+   nnoremap <silent><Leader>tts :terminal<cr>
+   nnoremap <silent><Leader>ttv :vertical terminal<cr>
+   nnoremap <silent><Leader>tth :terminal ++curwin<cr>
+   nnoremap <silent><Leader>ttt :tab terminal<cr>
    autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> A | endif
-   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><Leader>D :bp\|bd! #<cr> |endif
-   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><Leader>D :bp\|bd! #<cr> |endif
    set termwinscroll=100000
 
    " vim-tmux-focus-events plugin doesn't support terminal
