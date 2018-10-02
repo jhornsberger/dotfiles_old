@@ -1,7 +1,6 @@
 " Plugins via Vim-Plug
 call plug#begin()
 Plug 'tpope/vim-sensible'
-Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/python_match.vim'
 Plug 'majutsushi/tagbar'
@@ -25,6 +24,7 @@ Plug 'git@gitlab.aristanetworks.com:the_third_man/arvim.git'
 Plug 'itchyny/lightline.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/gv.vim'
 call plug#end()
 
 " Options for editing
@@ -251,11 +251,12 @@ map <silent> #  <Plug>(asterisk-z#)
 map <silent> g* <Plug>(asterisk-gz*)
 map <silent> g# <Plug>(asterisk-gz#)
 
-" Gitv plugin
-let g:Gitv_DoNotMapCtrlKey = 1
-"let g:Gitv_PreviewOptions = '--notes=gitar-*'
-nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
-nnoremap <silent> <Leader>gv! :Gitv!<cr>
+" gv plugin
+nnoremap <silent> <Leader>gv :GV --branches --tags --remotes<cr>
+nnoremap <silent> <Leader>gv! :GV! --branches --tags --remotes<cr>
+nnoremap <silent> <Leader>gv? :GV?<cr>
+vnoremap <silent> <Leader>gv :GV --branches --tags --remotes<cr>
+vnoremap <silent> <Leader>gv? :GV?<cr>
 
 " Fugitive plugin
 map <silent> <Leader>gs :Gstatus<cr>
