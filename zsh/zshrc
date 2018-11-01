@@ -74,7 +74,7 @@ a4cshell() {
 export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
 export PATH=/home/jeff/bin:$PATH
-export EDITOR=nvim
+export EDITOR=vim
 export P4MERGE=amergeVim
 export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
 
