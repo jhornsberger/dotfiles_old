@@ -175,10 +175,11 @@ nnoremap <silent><Leader>o :resize \| vertical resize<cr>
 nnoremap <silent><Leader>O :only<cr>
 nnoremap <silent><Leader>c :close<cr>
 nnoremap <silent><Leader>D :bp\|bd #<cr>
-nnoremap <silent><Leader>DD :bp\|bd! #<cr>
+nnoremap <silent><Leader>DD :bp!\|bd! #<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
 nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
 nnoremap <silent><Leader>n :set number! relativenumber!<cr>
+nnoremap <C-W><C-F> <C-W>vgf " Open file under cursor in vertical split
 
 " Terminal
 if has( "nvim" )
@@ -200,6 +201,10 @@ elseif has( "terminal" )
    nnoremap <silent><Leader>ttv :vertical terminal<cr>
    nnoremap <silent><Leader>tth :terminal ++curwin<cr>
    nnoremap <silent><Leader>ttt :tab terminal<cr>
+   nnoremap <Leader>TTS :terminal<space>
+   nnoremap <Leader>TTV :vertical terminal<space>
+   nnoremap <Leader>TTH :terminal ++curwin<space>
+   nnoremap <Leader>TTT :tab terminal<space>
    autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> A | endif
    set termwinscroll=100000
 
