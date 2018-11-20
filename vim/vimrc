@@ -7,7 +7,6 @@ Plug 'majutsushi/tagbar'
 Plug 'haya14busa/vim-asterisk'
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-hugefile'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/DirDiff.vim'
@@ -270,9 +269,6 @@ map <Leader>gc :Gcommit<space>
 map <silent> <Leader>gb :Gblame<cr>
 map <Leader>G :Git<space>
 
-" Hugefile plugin
-let g:hugefile_trigger_size = 50
-
 " DirDiff plugin
 " ignore white space in diff
 let g:DirDiffAddArgs = "-w"
@@ -333,3 +329,7 @@ let g:lightline = { 'colorscheme': 'solarized' }
 autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>t :GoDecls<cr>
 autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>T :GoDeclsDir<cr>
 let g:go_fmt_autosave=0
+
+" vim-alog
+autocmd vimrc BufNewFile,BufReadPost *.log nnoremap <buffer> <Leader>al :set filetype=alog<cr>
+
