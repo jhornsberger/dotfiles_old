@@ -2,7 +2,7 @@
 call plug#begin()
 Plug 'tpope/vim-sensible'
 Plug 'tmhedberg/matchit'
-Plug 'vim-scripts/python_match.vim'
+"Plug 'vim-scripts/python_match.vim'
 Plug 'majutsushi/tagbar'
 Plug 'haya14busa/vim-asterisk'
 Plug 'flazz/vim-colorschemes'
