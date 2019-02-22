@@ -304,11 +304,12 @@ map <Leader>F :Files<space>
 map <silent> <Leader>b :Buffers<cr>
 map <silent> <Leader>t :BTags<cr>
 map <silent> <Leader>T :Tags<cr>
+map <silent> <Leader>w :Windows<cr>
 map <Leader>g :Rg<space>
-map <Leader>l :BLines<cr>
+map <silent> <Leader>l :BLines<cr>
 map <silent> <Leader>h :Helptags<cr>
 map <silent> <Leader>: :History:<cr>
-map <silent> <Leader>s :History/<cr>
+map <silent> <Leader>/ :History/<cr>
 
 " vim-textobj-diff plugin
 "let g:textobj_diff_no_default_key_mappings = 1
