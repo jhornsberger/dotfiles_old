@@ -59,7 +59,7 @@ setopt interactivecomments
 KEYTIMEOUT=1
 
 # Aliases
-alias notify='echo -e "\a"'
+alias tasktrack='tmux display-message "Task complete in #S"'
 alias tnest='(unset TMUX; tmux)'
 alias vi='vim -u NONE'
 alias a4chroot='tmux set-option @a4chroot $PWD && a4 chroot -i'
@@ -77,6 +77,7 @@ export PATH=/home/jeff/bin:$PATH
 export EDITOR=vim
 export P4MERGE=amergeVim
 export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
+export TMUX_TMPDIR=$HOME/.tmux/sockets
 
 # Fzf
 _gen_fzf_default_opts() {
