@@ -27,6 +27,7 @@ Plug 'junegunn/gv.vim'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
+Plug 'teranex/jk-jumps.vim'
 call plug#end()
 
 " Options for editing
@@ -336,3 +337,5 @@ let g:go_fmt_autosave=0
 " vim-alog
 autocmd vimrc BufNewFile,BufReadPost *.log nnoremap <buffer> <Leader>al :set filetype=alog<cr>
 
+" jk-jumps plugin
+let g:jk_jumps_minimum_lines = 2
