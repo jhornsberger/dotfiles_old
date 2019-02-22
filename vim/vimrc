@@ -169,8 +169,8 @@ nnoremap <silent><Leader>cc :cclose<return>
 nnoremap j gj
 nnoremap k gk
 noremap <silent><Leader>// :let @/ = ""<CR>
-nnoremap <Leader>ms :mksession! ~/.vim_session<CR> " Quick write session
-nnoremap <Leader>ls :source ~/.vim_session<CR>     " And load session
+nnoremap <Leader>ms :mksession! ~/.vim_session<CR>
+nnoremap <Leader>ls :source ~/.vim_session<CR>
 nnoremap <silent><Leader>\| :vsp<cr>
 nnoremap <silent><Leader>- :sp<cr>
 nnoremap <silent><Leader>= <C-w>=
@@ -181,6 +181,7 @@ nnoremap <silent><Leader>D :bp\|bd #<cr>
 nnoremap <silent><Leader>DD :bp!\|bd! #<cr>
 nnoremap <silent><Leader>P :set paste!<cr>
 nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
+nnoremap <silent><Leader>R :redraw!<cr>
 nnoremap <silent><Leader>n :set number! relativenumber!<cr>
 nnoremap <C-W><C-F> <C-W>vgf " Open file under cursor in vertical split
 
@@ -193,7 +194,7 @@ if has( "nvim" )
    tnoremap <silent><C-L> <Cmd>wincmd l<cr>
    tnoremap <silent><C-H> <Cmd>wincmd h<cr>
    nnoremap <silent><Leader>tt :terminal<cr>
-   autocmd vimrc TermOpen * nnoremap <buffer> <silent><cr> <Cmd>startinsert!<cr>
+   autocmd vimrc TermOpen * nnoremap <buffer> <silent><cr> gi
 elseif has( "terminal" )
    tnoremap <Esc><Esc> <C-W>N
    tnoremap <silent><C-J> <C-W>j
@@ -208,7 +209,7 @@ elseif has( "terminal" )
    nnoremap <Leader>TTV :vertical terminal<space>
    nnoremap <Leader>TTH :terminal ++curwin<space>
    nnoremap <Leader>TTT :tab terminal<space>
-   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> A | endif
+   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> gi| endif
    set termwinscroll=100000
 
    " vim-tmux-focus-events plugin doesn't support terminal
@@ -334,7 +335,7 @@ autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>t :GoDecls<cr>
 autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>T :GoDeclsDir<cr>
 let g:go_fmt_autosave=0
 
-" vim-alog
+" vim-alog plugin
 autocmd vimrc BufNewFile,BufReadPost *.log nnoremap <buffer> <Leader>al :set filetype=alog<cr>
 
 " jk-jumps plugin
