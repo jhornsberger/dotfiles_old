@@ -6,10 +6,19 @@
 [merge]
 	tool = vimdiff
 [alias]
-	logma = log --oneline --decorate --graph --branches --tags --remotes master~1..
-	loga = log --oneline --decorate --graph --branches --tags --remotes
+	logma = log --oneline --decorate --graph --branches --tags master~1..
+	loga = log --oneline --decorate --graph --branches --tags
 	logb = log --oneline --decorate --graph
 [push]
 	default = simple
 #[notes]
 #	displayRef = refs/notes/gitar-*
+[gitar]
+	configured = true
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[rebase]
+	autosquash = true

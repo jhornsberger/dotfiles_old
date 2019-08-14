@@ -13,32 +13,32 @@ if [ -x "$(command -v dircolors)" ]; then
 fi
 
 # Prompt
-function precmd {
-   # check a4 chroot
-   if ! command -v a4 >/dev/null 2>&1 || [[ -n "${A4_CHROOT}" ]]; then
-      PR_CHROOT_COL="yellow"
-   else
-      PR_CHROOT_COL="blue"
-   fi
-   PR_COL=$PR_CHROOT_COL
-
-   # check ns
-   if [[ -n "${NSNAME}" ]]; then
-      PR_NS=" +${NSNAME}"
-   else
-      PR_NS=""
-   fi
-}
-
-# Show vi mode in prompt
-accept-line() { PR_COL=$PR_CHROOT_COL; zle reset-prompt; zle .accept-line }
-zle -N accept-line
-function zle-line-init zle-keymap-select {
-    PR_COL="${${KEYMAP/vicmd/cyan}/(main|viins)/$PR_CHROOT_COL}"
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
+#function precmd {
+#   # check a4 chroot
+#   if ! command -v a4 >/dev/null 2>&1 || [[ -n "${A4_CHROOT}" ]]; then
+#      PR_CHROOT_COL="yellow"
+#   else
+#      PR_CHROOT_COL="blue"
+#   fi
+#   PR_COL=$PR_CHROOT_COL
+#
+#   # check ns
+#   if [[ -n "${NSNAME}" ]]; then
+#      PR_NS=" +${NSNAME}"
+#   else
+#      PR_NS=""
+#   fi
+#}
+#
+## Show vi mode in prompt
+#accept-line() { PR_COL=$PR_CHROOT_COL; zle reset-prompt; zle .accept-line }
+#zle -N accept-line
+#function zle-line-init zle-keymap-select {
+#    PR_COL="${${KEYMAP/vicmd/cyan}/(main|viins)/$PR_CHROOT_COL}"
+#    zle reset-prompt
+#}
+#zle -N zle-line-init
+#zle -N zle-keymap-select
 
 setprompt () {
    setopt prompt_subst prompt_percent
@@ -59,21 +59,16 @@ setopt interactivecomments
 KEYTIMEOUT=1
 
 # Aliases
-alias tasktrack='tmux display-message "Task complete in #S"'
-alias tnest='(unset TMUX; tmux)'
+alias tt='tmux display-message "Task complete in #S"'
 alias vi='vim -u NONE'
-alias a4chroot='tmux set-option @a4chroot $PWD && a4 chroot -i'
 alias pb='curl -F c=@- pb'
 
 # Functions
-a4cshell() {
-   tmux set-option @a4container "$1" && a4c shell "$1"
-}
 
 # Environment
 export GOPATH=~/go
 export PATH=$GOPATH/bin:$PATH
-export PATH=/home/jeff/bin:$PATH
+export PATH=$HOME/bin:$PATH
 export EDITOR=vim
 export P4MERGE=amergeVim
 export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
@@ -105,11 +100,11 @@ _gen_fzf_default_opts() {
   #  --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
   #  --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
   #"
-  ## Solarized Light color scheme for fzf
+  # Solarized Light color scheme for fzf
   export FZF_DEFAULT_OPTS="
-    --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
+    --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue,border:$base2
     --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
-    --ansi
+    --bind alt-p:toggle-preview
   "
 }
 _gen_fzf_default_opts
@@ -117,12 +112,3 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-# nix configuration
-if [ -x "$HOME/bin/nix-enter" ]; then
-   if [ ! -e /nix/var/nix/profiles/default ] || [ -z ${NIX_ENTER+x} ]; then
-      export NIX_ENTER=""
-      exec "$HOME/bin/nix-enter" "/bin/zsh"
-   fi
-fi
