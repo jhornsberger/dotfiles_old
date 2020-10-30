@@ -1,3 +1,5 @@
+"set rtp+=/usr/share/vim/vimfiles/
+
 " Plugins via Vim-Plug
 call plug#begin()
 Plug 'tpope/vim-sensible'
@@ -15,19 +17,20 @@ Plug 'bps/vim-textobj-python'
 Plug 'kana/vim-textobj-diff'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'tpope/vim-eunuch'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
 Plug 'git@gitlab.aristanetworks.com:the_third_man/arvim.git'
 Plug 'itchyny/lightline.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'junegunn/gv.vim'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'teranex/jk-jumps.vim'
+Plug 'rbong/vim-flog'
+Plug 'romainl/vim-qf'
+Plug 'camspiers/lens.vim'
 call plug#end()
 
 " Options for editing
@@ -35,12 +38,12 @@ set nocompatible
 set shiftwidth=3
 set tabstop=3
 set linebreak
-set textwidth=85
 set cindent
 set expandtab
 set nospell
 set virtualedit=all
 set history=5000
+set nojoinspaces
 
 " Mouse support with tmux
 set mouse=a
@@ -52,6 +55,18 @@ if &term =~ '^screen' && !has('nvim')
    else
       set ttymouse=xterm2
    endif
+endif
+
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  " Uncomment to have 'bomb' on by default for new files.
+  " Note, this will not apply to the first, empty buffer created at Vim startup.
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
 endif
 
 " Make splits appear as expected
@@ -88,7 +103,12 @@ set path=**
 set numberwidth=1
 set timeoutlen=1000
 set nofsync
-set swapsync=
+set previewheight=20
+
+if !has( "nvim" )
+   set swapsync=
+   set completeopt=menu,popup
+endif
 
 " Highlight cursor line only in current window
 augroup CursorLine
@@ -121,8 +141,12 @@ augroup vimrc
    autocmd!
 augroup END
 
+" Always equalize windows on resize
+autocmd vimrc VimResized * wincmd =
+
 " Options for vimdiff
-set diffopt=filler,vertical
+set diffopt+=vertical,algorithm:histogram
+
 " Automatically diffupdate on write
 autocmd vimrc BufWritePost * if &diff == 1 | diffupdate | endif
 
@@ -130,18 +154,26 @@ autocmd vimrc BufWritePost * if &diff == 1 | diffupdate | endif
 autocmd vimrc FileType qf wincmd J
 autocmd vimrc FileType gitcommit wincmd J
 
+" Set textwidth for programming
+autocmd vimrc FileType tac,cpp,python ++nested setlocal textwidth=85
+
+autocmd vimrc FileType tac set nocindent | set smartindent
+
 " Treat *.md files as markdown instead of Modula-2
 autocmd vimrc BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd vimrc BufNewFile,BufReadPost *.md set textwidth=0
+autocmd vimrc BufNewFile,BufReadPost *.md ++nested setlocal textwidth=0
 
 " Special textwidth gitcommit
-autocmd vimrc FileType gitcommit setlocal textwidth=72
+autocmd vimrc FileType gitcommit ++nested setlocal textwidth=72
 
 " Treat *.*tin files as C++
 autocmd vimrc BufNewFile,BufReadPost *.*tin set filetype=cpp
 
 " Longer lines in go files
-autocmd vimrc FileType go setlocal textwidth=100
+autocmd vimrc FileType go ++nested setlocal textwidth=100
+
+" Set colorcolumn to match textwidth
+autocmd vimrc OptionSet textwidth let &l:colorcolumn=&l:textwidth
 
 " Mappings
 let g:mapleader = "\<Space>"
@@ -156,26 +188,33 @@ nnoremap <silent><Leader>tn :tabnew<return>
 nnoremap <silent><Leader>to :tabonly<return>
 nnoremap <Leader>te :tabedit<space>
 nnoremap <Leader>tm :tabmove<space>
-nnoremap <silent><Leader>co :copen<return>
-nnoremap <silent><Leader>cc :cclose<return>
+nnoremap <Leader>L :let &colorcolumn = &colorcolumn == '' ? '85' : ''<CR>
+nnoremap <Leader>co :copen<return>
+nnoremap <Leader>cc :cclose<return>
 nnoremap j gj
 nnoremap k gk
 noremap <silent><Leader>// :let @/ = ""<CR>
 nnoremap <Leader>ms :mksession! ~/.vim_session<CR>
 nnoremap <Leader>ls :source ~/.vim_session<CR>
-nnoremap <silent><Leader>\| :vsp<cr>
-nnoremap <silent><Leader>- :sp<cr>
-nnoremap <silent><Leader>= <C-w>=
-nnoremap <silent><Leader>o :resize \| vertical resize<cr>
-nnoremap <silent><Leader>O :only<cr>
-nnoremap <silent><Leader>c :close<cr>
-nnoremap <silent><Leader>D :bp\|bd #<cr>
-nnoremap <silent><Leader>DD :bp!\|bd! #<cr>
-nnoremap <silent><Leader>P :set paste!<cr>
-nnoremap <silent><Leader>C :call SetColours()<cr> " Fix colors when they get messed
-nnoremap <silent><Leader>R :redraw!<cr>
-nnoremap <silent><Leader>n :set number! relativenumber!<cr>
+nnoremap <Leader>\| :vsp<cr>
+nnoremap <Leader>- :sp<cr>
+nnoremap <Leader>= <C-w>=
+nnoremap <Leader>o :resize \| vertical resize<cr>
+nnoremap <Leader>O :only<cr>
+nnoremap <Leader>c :close<cr>
+nnoremap <Leader>D :bp\|bd #<cr>
+nnoremap <Leader>DC :bp\|bd #\|close<cr>
+nnoremap <Leader>DD :bp!\|bd! #<cr>
+nnoremap <Leader>DDC :bp!\|bd! #\|close<cr>
+nnoremap <Leader>P :set paste!<cr>
+nnoremap <Leader>C :call SetColours()<cr> " Fix colors when they get messed
+nnoremap <Leader>R :redraw!<cr>
+nnoremap <Leader>n :set relativenumber!<cr>
+nnoremap <Leader>N :set number!<cr>
+nnoremap <Leader>w :set wrap!<cr>
 nnoremap <C-W><C-F> <C-W>vgf " Open file under cursor in vertical split
+nnoremap <Leader>j :pedit +$ `job -g <cword>`<cr>
+nnoremap <Leader>J :edit +$ `job -g <cword>`<cr>
 
 " Terminal
 if has( "nvim" )
@@ -185,7 +224,6 @@ if has( "nvim" )
    tnoremap <silent><C-K> <Cmd>wincmd k<cr>
    tnoremap <silent><C-L> <Cmd>wincmd l<cr>
    tnoremap <silent><C-H> <Cmd>wincmd h<cr>
-   nnoremap <silent><Leader>tt :terminal<cr>
    autocmd vimrc TermOpen * nnoremap <buffer> <silent><cr> gi
 elseif has( "terminal" )
    tnoremap <Esc><Esc> <C-W>N
@@ -193,6 +231,10 @@ elseif has( "terminal" )
    tnoremap <silent><C-K> <C-W>k
    tnoremap <silent><C-L> <C-W>l
    tnoremap <silent><C-H> <C-W>h
+   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> gi | endif
+endif
+
+if has( "terminal" )
    nnoremap <silent><Leader>tts :terminal<cr>
    nnoremap <silent><Leader>ttv :vertical terminal<cr>
    nnoremap <silent><Leader>tth :terminal ++curwin<cr>
@@ -201,7 +243,6 @@ elseif has( "terminal" )
    nnoremap <Leader>TTV :vertical terminal<space>
    nnoremap <Leader>TTH :terminal ++curwin<space>
    nnoremap <Leader>TTT :tab terminal<space>
-   autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> gi| endif
    set termwinscroll=100000
 
    " vim-tmux-focus-events plugin doesn't support terminal
@@ -213,17 +254,6 @@ endif
 nnoremap <silent><Leader>H :set list!<cr>
 set listchars=tab:>-,trail:-
 
-" Highlight long lines (based on textwidth)
-nnoremap <silent> <Leader>L
-      \ :if exists('w:long_line_match') <Bar>
-      \   silent! call matchdelete(w:long_line_match) <Bar>
-      \   unlet w:long_line_match <Bar>
-      \ elseif &textwidth > 0 <Bar>
-      \   let w:long_line_match = matchadd('ErrorMsg', '\%>'.&tw.'v.\+', -1) <Bar>
-      \ else <Bar>
-      \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
-      \ endif<CR>
-
 " netrw settings
 let g:netrw_localrmdir='rm -r'
 let g:netrw_banner = 0
@@ -231,6 +261,8 @@ let g:netrw_liststyle = 3
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 let g:netrw_browse_split = 2
+let g:netrw_http_cmd="curl"
+let g:netrw_http_xcmd="-L -o"
 
 " Tagbar plugin
 map <Leader>tb :TagbarToggle<CR>
@@ -252,21 +284,13 @@ map <silent> #  <Plug>(asterisk-z#)
 map <silent> g* <Plug>(asterisk-gz*)
 map <silent> g# <Plug>(asterisk-gz#)
 
-" gv plugin
-nnoremap <silent> <Leader>gv :GV --branches --tags --remotes @<cr>
-nnoremap <silent> <Leader>gvh :only \| close \| GV --branches --tags --remotes @<cr>
-nnoremap <silent> <Leader>gv! :GV! --branches --tags --remotes @<cr>
-nnoremap <silent> <Leader>gv? :GV?<cr>
-vnoremap <silent> <Leader>gv :GV --branches --tags --remotes @<cr>
-vnoremap <silent> <Leader>gv? :GV?<cr>
-
 " Fugitive plugin
-map <silent> <Leader>gs :Gstatus<cr>
+map <Leader>gs :topleft vertical Git<cr>
 map <Leader>ge :Gedit<space>
-map <Leader>gd :Gdiff<space>
-map <Leader>gdh :Gedit \| windo difft<cr>
-map <Leader>gc :Gcommit<space>
-map <silent> <Leader>gb :Gblame<cr>
+map <Leader>gd :Gdiffsplit<space>
+map <Leader>ged :Gedit \| windo difft<cr>
+map <Leader>gc :Git commit<space>
+map <Leader>gb :Git blame<cr>
 map <Leader>G :Git<space>
 
 " DirDiff plugin
@@ -274,41 +298,26 @@ map <Leader>G :Git<space>
 let g:DirDiffAddArgs = "-w"
 
 " Fzf
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-  \ { 'fg':      ['fg', 'Normal'],
-  \   'bg':      ['bg', 'Normal'],
-  \   'hl':      ['fg', 'Comment'],
-  \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \   'hl+':     ['fg', 'Statement'],
-  \   'info':    ['fg', 'PreProc'],
-  \   'border':  ['fg', 'Ignore'],
-  \   'prompt':  ['fg', 'Conditional'],
-  \   'pointer': ['fg', 'Exception'],
-  \   'marker':  ['fg', 'Keyword'],
-  \   'spinner': ['fg', 'Label'],
-  \   'header':  ['fg', 'Comment'] }
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1 } }
 command! -bang -nargs=* -complete=file Rg
 \ call fzf#vim#grep(
 \   'rg --vimgrep '.<q-args>, 1,
 \   <bang>0 ? fzf#vim#with_preview('up:60%')
 \           : fzf#vim#with_preview('right:50%:hidden', '?'),
 \   <bang>0)
-command! -bang -nargs=* -complete=file Files
-\ call fzf#run(fzf#wrap(
-\    { 'source': 'rg --files '.<q-args> }, <bang>0 ))
 map <Leader>f :Files<cr>
 map <Leader>F :Files<space>
-map <silent> <Leader>b :Buffers<cr>
-map <silent> <Leader>t :BTags<cr>
-map <silent> <Leader>T :Tags<cr>
-map <silent> <Leader>w :Windows<cr>
+map <Leader>b :Buffers<cr>
+map <Leader>bt :BTags<cr>
+map <Leader>BT :BTags<space>
+map <Leader>t :Tags<cr>
+map <Leader>T :Tags<space>
+map <Leader>W :Windows<cr>
 map <Leader>g :Rg<space>
 map <silent> <Leader>l :BLines<cr>
-map <silent> <Leader>h :Helptags<cr>
-map <silent> <Leader>: :History:<cr>
-map <silent> <Leader>/ :History/<cr>
+map <Leader>h :Helptags<cr>
+map <Leader>: :History:<cr>
+map <Leader>/ :History/<cr>
 
 " vim-textobj-diff plugin
 "let g:textobj_diff_no_default_key_mappings = 1
@@ -329,15 +338,23 @@ let a4_auto_edit = 0
 " Lightline plugin
 set noshowmode
 let g:lightline = { 'colorscheme': 'solarized' }
-nmap <silent> <Leader>FL call lightline#disable() | call lightline#enable()
-
-" vim-go plugin
-"autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>t :GoDecls<cr>
-"autocmd vimrc FileType go nnoremap <buffer> <silent> <Leader>T :GoDeclsDir<cr>
-"let g:go_fmt_autosave=0
+"nmap <silent> <Leader>FL call lightline#disable() | call lightline#enable()
 
 " vim-alog plugin
 autocmd vimrc BufNewFile,BufReadPost *.log nnoremap <buffer> <Leader>al :set filetype=alog<cr>
 
 " jk-jumps plugin
 let g:jk_jumps_minimum_lines = 2
+
+" Flog plugin
+nnoremap <Leader>gl :Flog -date=local<cr>
+nnoremap <Leader>glf :Flog -date=local -path=%<cr>
+" I don't know why this doesn't work...
+"let g:flog_default_arguments = { 'max-count': 1000 }
+
+" vim-qf plugin
+nmap <silent><c-p> <Plug>(qf_qf_previous)
+nmap <silent><c-n> <Plug>(qf_qf_next)
+
+" lens plugin
+let g:lens#width_resize_max = 85

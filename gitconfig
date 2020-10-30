@@ -9,6 +9,7 @@
 	logma = log --oneline --decorate --graph --branches --tags master~1..
 	loga = log --oneline --decorate --graph --branches --tags
 	logb = log --oneline --decorate --graph
+	cp = cherry-pick
 [push]
 	default = simple
 #[notes]
@@ -22,3 +23,5 @@
 	smudge = git-lfs smudge -- %f
 [rebase]
 	autosquash = true
+[diff]
+	algorithm = histogram

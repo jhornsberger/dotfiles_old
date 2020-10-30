@@ -5,6 +5,8 @@ ar:*.{tac,tin,py,ar,am}
 tac:*.tac
 --type-add
 tin:*.tin
+--type-add
+arx:*.arx
 --no-ignore-vcs
 --hidden
 --color=auto

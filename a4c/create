@@ -1,5 +1,5 @@
 #!/bin/sh
 
-a4 yum install -y --enablerepo=* zsh man python-gitar Umbrella-ArosTestPlugins
+a4 yum install -y --enablerepo=* man Umbrella-ArosTestPlugins
 
-(cd /src; echo "Building tags..." && a4 ctags)
+nohup a ws ctags < /dev/null &> /dev/null &

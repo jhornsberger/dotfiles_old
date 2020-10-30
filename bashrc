@@ -5,10 +5,10 @@
 
 if [ -z ${ARTOOLS_NOPROMPTMUNGE} ] && [[ $- == *i* ]]; then  # check if interactive shell
    # nix configuration
-   if [ -x "$HOME/bin/nix-enter" ]; then
+   if [ -x "$HOME/.local/bin/nix-enter" ]; then
       if [ ! -e /nix/var/nix/profiles ] || [ -z ${NIX_ENTER+x} ]; then
          export NIX_ENTER=""
-         exec "$HOME/bin/nix-enter"
+         exec "$HOME/.local/bin/nix-enter"
       fi
    fi
    if [[ -x "/nix/var/nix/profiles/default/bin/bash" && $(readlink -f /proc/$$/exe) != *nix* ]]; then
@@ -19,7 +19,7 @@ fi
 # User specific aliases and functions
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+   . /etc/bashrc
 fi
 
 if [ -z ${ARTOOLS_NOPROMPTMUNGE} ] && [[ $- == *i* ]]; then  # check if interactive shell
@@ -28,11 +28,13 @@ if [ -z ${ARTOOLS_NOPROMPTMUNGE} ] && [[ $- == *i* ]]; then  # check if interact
    shopt -s histappend
    PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-   export PATH=$HOME/bin:$PATH
+   unset VISUAL
+   export PATH=$HOME/.local/bin:$PATH
    export EDITOR=vim
    export P4MERGE=amergeVim
    export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
    export TMUX_TMPDIR=$HOME/.tmux/sockets
+   export P4_AUTO_LOGIN=1
 
    # Set bash prompt
    function _update_ps1() {
@@ -44,11 +46,6 @@ if [ -z ${ARTOOLS_NOPROMPTMUNGE} ] && [[ $- == *i* ]]; then  # check if interact
    fi
 fi
 
-# Gitar
-export GERRIT_HOST=pg-gerrit.infra.corp.arista.io
-export GERRIT_SSH_PORT=29410
-export GERRIT_TRUNK=gitarband-trunk
-
 # Colors
 if [ -x "$(command -v dircolors)" ]; then
    eval `dircolors ~/.dircolors`
@@ -58,6 +55,7 @@ fi
 alias tt='tmux display-message "Task complete in #S"'
 alias vi='vim -u NONE'
 alias pb='curl -F c=@- pb'
+alias j='job -q'
 
 # Fzf
 _gen_fzf_default_opts() {
@@ -90,10 +88,15 @@ _gen_fzf_default_opts() {
     --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue,border:$base2
     --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
     --bind alt-p:toggle-preview
+    --height 50%
   "
 }
 _gen_fzf_default_opts
 export FZF_DEFAULT_COMMAND='rg --files'
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
+export LOCALE_ARCHIVE="$(readlink ~/.nix-profile/lib/locale)/locale-archive"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if command -v fzf-share >/dev/null; then
+   source "$(fzf-share)/key-bindings.bash"
+   source "$(fzf-share)/completion.bash"
+fi
