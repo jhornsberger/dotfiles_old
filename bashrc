@@ -30,11 +30,16 @@ if [ -z ${ARTOOLS_NOPROMPTMUNGE} ] && [[ $- == *i* ]]; then  # check if interact
 
    unset VISUAL
    export PATH=$HOME/.local/bin:$PATH
-   export EDITOR=vim
+   if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+      export EDITOR="nvr --remote-wait +'set bufhidden=wipe'"
+   else
+      export EDITOR=nvim
+   fi
    export P4MERGE=amergeVim
    export NOTI_PB=o.xXcIRDklt4berjLHFbbiwOe7f8QjRDml
    export TMUX_TMPDIR=$HOME/.tmux/sockets
    export P4_AUTO_LOGIN=1
+   export SKIPTACGO=1
 
    # Set bash prompt
    function _update_ps1() {
@@ -52,10 +57,8 @@ if [ -x "$(command -v dircolors)" ]; then
 fi
 
 # Aliases
-alias tt='tmux display-message "Task complete in #S"'
-alias vi='vim -u NONE'
+alias vi='nvim -u NONE'
 alias pb='curl -F c=@- pb'
-alias j='job -q'
 
 # Fzf
 _gen_fzf_default_opts() {

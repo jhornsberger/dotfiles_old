@@ -6,12 +6,12 @@ Plug 'tpope/vim-sensible'
 Plug 'tmhedberg/matchit'
 Plug 'majutsushi/tagbar'
 Plug 'haya14busa/vim-asterisk'
-Plug 'flazz/vim-colorschemes'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/DirDiff.vim'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python'
 Plug 'kana/vim-textobj-diff'
@@ -31,6 +31,7 @@ Plug 'teranex/jk-jumps.vim'
 Plug 'rbong/vim-flog'
 Plug 'romainl/vim-qf'
 Plug 'camspiers/lens.vim'
+Plug 'frioux/vim-regedit'
 call plug#end()
 
 " Options for editing
@@ -78,15 +79,7 @@ set showmode
 
 " UI stuff
 set background=light
-function! SetColours()
-   try
-      colorscheme solarized
-   catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme desert
-   endtry
-endfunction
-call SetColours()
-
+colorscheme flattened_light
 set nocursorline
 set visualbell
 set ignorecase
@@ -124,7 +117,7 @@ if has("gui_running")
 endif
 
 " Options for folding
-set foldmethod=indent           "fdm:   fold by the indentation by default
+set foldmethod=syntax           "fdm:   fold by the indentation by default
 set nofoldenable                "nofen: don't fold by default
 
 " Options for backup files
@@ -152,7 +145,7 @@ autocmd vimrc BufWritePost * if &diff == 1 | diffupdate | endif
 
 " Always move some windows to the bottom
 autocmd vimrc FileType qf wincmd J
-autocmd vimrc FileType gitcommit wincmd J
+"autocmd vimrc FileType gitcommit wincmd J
 
 " Set textwidth for programming
 autocmd vimrc FileType tac,cpp,python ++nested setlocal textwidth=85
@@ -199,7 +192,9 @@ nnoremap <Leader>ls :source ~/.vim_session<CR>
 nnoremap <Leader>\| :vsp<cr>
 nnoremap <Leader>- :sp<cr>
 nnoremap <Leader>= <C-w>=
-nnoremap <Leader>o :resize \| vertical resize<cr>
+nnoremap <Leader>mh :vertical resize<cr>
+nnoremap <Leader>mv :resize<cr>
+nnoremap <Leader>ma :resize \| vertical resize<cr>
 nnoremap <Leader>O :only<cr>
 nnoremap <Leader>c :close<cr>
 nnoremap <Leader>D :bp\|bd #<cr>
@@ -218,13 +213,23 @@ nnoremap <Leader>J :edit +$ `job -g <cword>`<cr>
 
 " Terminal
 if has( "nvim" )
-   let g:terminal_scrollback_buffer_size=100000
    tnoremap <Esc><Esc> <C-\><C-n>
    tnoremap <silent><C-J> <Cmd>wincmd j<cr>
    tnoremap <silent><C-K> <Cmd>wincmd k<cr>
    tnoremap <silent><C-L> <Cmd>wincmd l<cr>
    tnoremap <silent><C-H> <Cmd>wincmd h<cr>
+	tnoremap <expr> <C-r><C-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+   autocmd vimrc TermOpen * setlocal scrollback=100000
    autocmd vimrc TermOpen * nnoremap <buffer> <silent><cr> gi
+
+   nnoremap <silent><Leader>tth :terminal<cr>
+   nnoremap <silent><Leader>tts :split +terminal<cr>
+   nnoremap <silent><Leader>ttv :vsplit +terminal<cr>
+   nnoremap <silent><Leader>ttt :tabnew +terminal<cr>
+   nnoremap <Leader>TTH :terminal<space>
+   nnoremap <Leader>TTS :split +terminal<space>
+   nnoremap <Leader>TTV :vsplit +terminal<space>
+   nnoremap <Leader>TTT :tabnew +terminal<space>
 elseif has( "terminal" )
    tnoremap <Esc><Esc> <C-W>N
    tnoremap <silent><C-J> <C-W>j
@@ -232,9 +237,12 @@ elseif has( "terminal" )
    tnoremap <silent><C-L> <C-W>l
    tnoremap <silent><C-H> <C-W>h
    autocmd vimrc TerminalOpen * if &buftype == 'terminal' | nnoremap <buffer> <silent><cr> gi | endif
-endif
+   set termwinscroll=100000
 
-if has( "terminal" )
+   " vim-tmux-focus-events plugin doesn't support terminal
+   "tnoremap <silent> <F24> <Nop>
+   "tnoremap <silent> <F25> <Nop>
+
    nnoremap <silent><Leader>tts :terminal<cr>
    nnoremap <silent><Leader>ttv :vertical terminal<cr>
    nnoremap <silent><Leader>tth :terminal ++curwin<cr>
@@ -243,16 +251,11 @@ if has( "terminal" )
    nnoremap <Leader>TTV :vertical terminal<space>
    nnoremap <Leader>TTH :terminal ++curwin<space>
    nnoremap <Leader>TTT :tab terminal<space>
-   set termwinscroll=100000
-
-   " vim-tmux-focus-events plugin doesn't support terminal
-   tnoremap <silent> <F24> <Nop>
-   tnoremap <silent> <F25> <Nop>
 endif
+
 
 " Show hidden characters
 nnoremap <silent><Leader>H :set list!<cr>
-set listchars=tab:>-,trail:-
 
 " netrw settings
 let g:netrw_localrmdir='rm -r'
@@ -269,7 +272,8 @@ map <Leader>tb :TagbarToggle<CR>
 let g:tagbar_compact = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
-let g:tagbar_left = 1
+let g:tagbar_position = 'leftabove vertical'
+let g:tagbar_sort = 0
 let g:tagbar_type_tac = {
    \ 'ctagstype' : 'tacc',
    \ 'kinds'     : [
@@ -337,8 +341,17 @@ let a4_auto_edit = 0
 
 " Lightline plugin
 set noshowmode
-let g:lightline = { 'colorscheme': 'solarized' }
-"nmap <silent> <Leader>FL call lightline#disable() | call lightline#enable()
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+		\   'right': [ [ 'lineinfo' ],
+		\              [ 'percent' ],
+		\              [ 'gitbranch', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 " vim-alog plugin
 autocmd vimrc BufNewFile,BufReadPost *.log nnoremap <buffer> <Leader>al :set filetype=alog<cr>

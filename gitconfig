@@ -1,10 +1,6 @@
 [user]
 	name = Jeff Hornsberger
 	email = jeff@arista.com
-[core]
-	editor = vim
-[merge]
-	tool = vimdiff
 [alias]
 	logma = log --oneline --decorate --graph --branches --tags master~1..
 	loga = log --oneline --decorate --graph --branches --tags
@@ -16,6 +12,9 @@
 #	displayRef = refs/notes/gitar-*
 [gitar]
 	configured = true
+	promptForTestingDone = false
+	scheduleTestBuild = true
+	autoLintChanges = true
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
